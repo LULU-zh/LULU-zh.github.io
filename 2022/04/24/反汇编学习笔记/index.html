@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>反汇编学习笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="逆向需要的知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反汇编学习笔记">
+<meta property="og:url" content="http://example.com/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="逆向需要的知识">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211014171018038.png">
+<meta property="og:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211014171359099.png">
+<meta property="article:published_time" content="2022-04-24T12:43:24.000Z">
+<meta property="article:modified_time" content="2022-04-24T12:45:12.658Z">
 <meta property="article:author" content="LULU">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20211014171018038.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -148,109 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-脱壳学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-反汇编学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">脱壳学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-04-24T12:46:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <span id="more"></span>
-
-<h4 id="基础脱壳教程一：手脱UPX壳"><a href="#基础脱壳教程一：手脱UPX壳" class="headerlink" title="基础脱壳教程一：手脱UPX壳"></a>基础脱壳教程一：手脱UPX壳</h4><p><strong>方法1：单步跟踪</strong></p>
-<p>一步一步跟踪，向上的跳转不能实现，向下的实现，遇到popad要注意，还有遇到很大跨度的跳转一般来说能找到OEP</p>
-<p>然后用OllyDump脱壳</p>
-<p><strong>方法2：ESP定律法</strong></p>
-<p>dd XXXXX（esp的值）<br>hr XXXXX</p>
-<p>或者在数据中跟随，设置硬件断点，再点击运行</p>
-<p><strong>方法3：2次内存镜像法</strong></p>
-<p>找程序段的第一个.rsrc</p>
-<p>再找UPX0</p>
-<p><strong>方法4：一步直达法（UPX壳）</strong></p>
-<p>找popad</p>
-<h4 id="基础脱壳教程2：手脱ASPACK壳"><a href="#基础脱壳教程2：手脱ASPACK壳" class="headerlink" title="基础脱壳教程2：手脱ASPACK壳"></a>基础脱壳教程2：手脱ASPACK壳</h4><p>ASPack 2.12 -&gt; Alexey Solodovnikov</p>
-<p>6种方法脱</p>
-<p>方法1：单步跟踪</p>
-<p>方法2：ESP定律</p>
-<p>方法3：一步直达</p>
-<p>方法4：2次内存镜像</p>
-<p>方法5：模拟跟踪</p>
-<p>tc eip&lt;xxxxxx</p>
-<p>找SFX,imports</p>
-<p>方法6：SFX</p>
-<p>选项卡找到SFX，OD自动跟踪</p>
-<h4 id="基础脱壳教程3：手脱NSPACK（北斗）"><a href="#基础脱壳教程3：手脱NSPACK（北斗）" class="headerlink" title="基础脱壳教程3：手脱NSPACK（北斗）"></a>基础脱壳教程3：手脱NSPACK（北斗）</h4><p>nSPack 1.3 -&gt; North Star&#x2F;Liu Xing Ping</p>
-<p>NsPacK V3.7 -&gt; LiuXingPing *</p>
-<p>下断点at GetVersion</p>
-<h4 id="基础脱壳教程4：手脱FSG壳"><a href="#基础脱壳教程4：手脱FSG壳" class="headerlink" title="基础脱壳教程4：手脱FSG壳"></a>基础脱壳教程4：手脱FSG壳</h4><p>FSG 2.0 -&gt; bart&#x2F;xt</p>
-<p>重点为修复</p>
-<p>手动、查找IAT</p>
-<p><strong>关于到OEP的一些特征代码</strong><br>现在的壳变聪明了，很少再使用Jump X这样的方式来到OEP了。下面介绍几种流行的方法。<br>1、push 寄存器或者地址 retn<br>       这种方法是利用retn来实现远跳转的，原理同call子程序的后返回的原理一样，即通过push一个值到堆栈顶，然后用retn指令即可返回到堆栈顶指向的地址。<br>2，mov dword ptr[*]，xxxx<br>jnz xxxx<br>retn<br>push 0 这个地址是上面的mov指令动态填写的<br>retn<br>这样的条转在ASPac和ASprotect中使用过。<br>3，mov 寄存器，*<em>X<br>     call 寄存器<br>这个在穿山甲的壳中可以看到。<br>4，还有使用Leave指令进行跳转的也可以注意下。<br>5，使用SEH。后面会提到。</em>*</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-反汇编学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">反汇编学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      反汇编学习笔记
     </h1>
   
 
@@ -263,12 +175,404 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="逆向需要的知识"><a href="#逆向需要的知识" class="headerlink" title="逆向需要的知识"></a>逆向需要的知识</h2>
-        
-          <a class="article-more-a" href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
+        <h2 id="逆向需要的知识"><a href="#逆向需要的知识" class="headerlink" title="逆向需要的知识"></a>逆向需要的知识</h2><span id="more"></span>
+<p>1.PE</p>
+<p>2.下断点</p>
+<p>3.WIN32 API</p>
+<p>4.什么是函数调用</p>
+<p>5.熟悉堆栈-画过堆栈图</p>
+<p>6.Call JCC 标志寄存器</p>
+<h2 id="常用寄存器"><a href="#常用寄存器" class="headerlink" title="常用寄存器"></a>常用寄存器</h2><p>1.进位标志器CF：运算结果的<strong>最高位</strong>产生了一个进位或借位，其值为1，否则其值为0。（最高位由数据宽度决定）</p>
+<p>2.辅助进位标志AF：在字操作时，发生低字节向高字节进位或借位时；</p>
+<p>​                                   在字节操作时，发生低4位向高4位进位或借位时。</p>
+<p> 进位为1，否则置0。</p>
+<p>3.零标志位ZF：反映运算结果是否为0。运算结果为0时，置1。</p>
+<p>4.符号标志位SF：用来反映运算结果的符号位，它与运算结果的最高位相同。</p>
+<p>5.溢出标志位OF：溢出标志表示有符号数运算结果是否超出范围。（正+正&#x3D;正 结果如果是负数，则溢出；正+负永远不会有溢出）</p>
+<p>6.奇偶标志位PF：奇数个1置1。</p>
+<h2 id="JCC"><a href="#JCC" class="headerlink" title="JCC"></a>JCC</h2><p>1.jmp指令只修改EIP </p>
+<p>2.CALL也会修改EIP的值，并且会把下一行指令的地址压入栈中（也称返回地址）</p>
+<p>（CPU不允许mov eip的写法）</p>
+<p>3.RETN &#x3D; pop eip</p>
+<p>4.CMP指令：CMP R&#x2F;M, R&#x2F;M&#x2F;IMM（注意比较的数据宽度）</p>
+<p>只影响标志位，CMP相当于sub；TEST相当于and</p>
+<p>5.JE（jmp equal），JZ（jmp zero）：结果为零则跳转（相等时跳转）</p>
+<p>JNE,JNZ：结果不为零则跳转。</p>
+<p>6.STOS：将前面的值复制给后面。REP重复。</p>
+<p>例：MOV EAX，CCCCCCCC(防止缓冲区溢出)<br>        REP STOS，DWORD PTR ES：[EDI]<br>        将EAX的值赋给EDI<br>        当DF位为0+，DF位为1-。</p>
+<p>7.函数调用前和调用后堆栈一定是平衡的。</p>
+<p>8.lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：<br>lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax（直接取地址的意思），而不是把ebx+8处的内存地址里的数据赋给eax。</p>
+<p>而mov指令则恰恰相反，例如：<br>mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
+<h2 id="调用约定"><a href="#调用约定" class="headerlink" title="调用约定"></a>调用约定</h2><p>1.cdecl：参数从右至左入栈，调用者清理堆栈。</p>
+<p>2._stdcall：参数从右至左入栈，自身清理堆栈。</p>
+<p>3._fastcall：ECX&#x2F;EDX传送前两个，剩下从右至左入栈，自身清理堆栈。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>char 8bit 1字节</p>
+<p>short 16bit 2字节</p>
+<p>int 32bit 4字节</p>
+<p>long 32bit 4字节</p>
+<p><strong>浮点数据的存储（IEEE）</strong></p>
+<p>8.25用二进制表示可以表示为1000.01</p>
+<p>1000.01&#x3D;1.00001*2的3次方 小数点向左移动三3位 指数为3</p>
+<table>
+<thead>
+<tr>
+<th align="center">0</th>
+<th>10000010</th>
+<th align="center">00001000000000000000000</th>
+</tr>
+</thead>
+</table>
+<p>符号位       左移第一位是1   3-1&#x3D;2（10）     小数部分，不足补零<br>                  右移第一位是0<br>                  或者是127+x</p>
+<p>局部变量从[EBP-4]开始</p>
+<p>参数从[EBP+8]开始 </p>
+<p>EIP为[EBP+4]  </p>
+<p>EBP：原来的栈底（调用前的EBP）</p>
+<p>1.保存原来的栈底<br>push ebp<br>2.提升堆栈<br>mov ebp,esp<br>sub esp,0x40<br>3.保存现场<br>push edi<br>push esi<br>push ebx<br>4.填充缓冲区<br>mov eax,0xCCCCCCCC<br>mov ecx,0x10<br>lea edi,dword ptr ds:[ebp-0x40]<br>rep stosd<br>5.真正执行的功能<br>6.恢复现场<br>7.恢复堆栈<br>mov esp,ebp<br>pop ebp<br>ret</p>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>代码区（可读可执行）<br>堆栈（参数，局部变量，临时数据）：全局变量不赋初值默认为0，局部变量必须赋初值。<br>堆（动态申请的，大小是可变的，可读可写）<br>全局变量区（可读可写）<br>常量区（只读）</p>
+<h2 id="逆向分析"><a href="#逆向分析" class="headerlink" title="逆向分析"></a>逆向分析</h2><p><strong>1.怎么确定一个程序有几个参数？</strong></p>
+<p>步骤一：观察调用处的代码<br>PUSH 3<br>PUSH 2<br>PUSH 1<br>CALL 0040100f<br>步骤二：找到平衡堆栈的代码继续论证<br>call 0040100f<br>add esp,0Ch</p>
+<p>或者函数内部<br>ret 4&#x2F;8&#x2F;0xC&#x2F;0x10 </p>
+<p>（当函数调用处不好判断时）</p>
+<p>不考虑ebp、esp<br>只找给别人赋值的寄存器（eax&#x2F;ecx&#x2F;edx&#x2F;ebx&#x2F;esi&#x2F;edi）<br>找到之后追查其来源，如果该赋值的寄存器不是在函数内存赋值的，那一定是传进来的参数<br>公式一：寄存器+ret 4&#x3D; 参数个数<br>公式二：寄存器+[ebp+8]+[ebp+0x]&#x3D;参数个数</p>
+<p><strong>2.函数内部分析</strong></p>
+<p>步骤一：分析参数<br>[EBP+8]：X   [EBP+0Ch]：Y<br>步骤二：分析局部变量<br>[EBP-x]<br>步骤三：分析全局变量<br>（直接寻址）mov dword ptr [004225c4],ecx<br>步骤四：功能分析<br>注意比较指令和跳转之类的</p>
+<p><strong>IF语句</strong><br>执行各类影响标志位的指令<br>jxx xxxx</p>
+<p>jle（第一个参数小于或者等于第二个参数就实现跳转）</p>
+<p>je（等于就跳转）</p>
+<p>ja（大于就跳转 ）</p>
+<h2 id="C语言基础"><a href="#C语言基础" class="headerlink" title="C语言基础"></a>C语言基础</h2><h4 id="1-数据类型的转化"><a href="#1-数据类型的转化" class="headerlink" title="1 数据类型的转化"></a>1 数据类型的转化</h4><p>大类型转小类型0x12345678—&gt;0xCCCC5678<br>小类型转大类型不够的地方补零<br>当表达式中同时存在有符号数和无符号数时，表达式的结构将表示为无符号数。</p>
+<p>movzx适用于有符号整数</p>
+<p>movsx适用于无符号整数</p>
+<h4 id="2-返回值是怎么传递的"><a href="#2-返回值是怎么传递的" class="headerlink" title="2 返回值是怎么传递的"></a>2 返回值是怎么传递的</h4><p>8位 al</p>
+<p>16位 ax</p>
+<p>32位 eax</p>
+<p>char和short类型并没有节省空间，按照本机尺寸的类型，传递参数效率最高。</p>
+<h4 id="3-数组的反汇编是怎么表示的"><a href="#3-数组的反汇编是怎么表示的" class="headerlink" title="3 数组的反汇编是怎么表示的"></a>3 数组的反汇编是怎么表示的</h4><p>int x &#x3D;1</p>
+<p>mov dword ptr [ebp-4],1</p>
+<p>int arr[10]&#x3D;{1,2,3,4,5,6,7,8,9,10}</p>
+<p>{</p>
+<p>mov dword ptr [ebp-34h],1</p>
+<p>mov dword ptr [ebp-30h],2</p>
+<p>……</p>
+<p>}</p>
+<p>r&#x3D;arr[1] </p>
+<p>{</p>
+<p>mov eax,dword ptr [ebp-30h]</p>
+<p>mov dword ptr [ebp-0ch],eax</p>
+<p>}</p>
+<p>r&#x3D;arr[x]</p>
+<p>{</p>
+<p>mov ecx,dword ptr [ebp-4]</p>
+<p>mov edx,dword ptr [ebp+ecx*4-34h]（数组&#x3D;ebp-30h）int类型所以乘以4</p>
+<p>mov dword ptr [ebp-0ch],edx</p>
+<p>}</p>
+<h4 id="4-多维数组"><a href="#4-多维数组" class="headerlink" title="4 多维数组"></a>4 多维数组</h4><p>arr【5】【12】</p>
+<p>获取第二年第八个月的数据</p>
+<p>arr【1】【7】编译器是如何找到的arr【1*12+7】</p>
+<h4 id="5-结构体（没有很懂）"><a href="#5-结构体（没有很懂）" class="headerlink" title="5 结构体（没有很懂）"></a>5 结构体（没有很懂）</h4><p>当传入的参数是结构体是【且宽度比较大的时候】，参数的传递方式会采用类似初始化堆栈的方式</p>
+<p>SUB ESP 18H</p>
+<p>MOV ECX,6H</p>
+<p>MOV ESI,6H</p>
+<p>REP STOS DWORD PTR [ESI]</p>
+<p> 结构体变量一般都定义为全局变量</p>
+<h4 id="6-字节对齐"><a href="#6-字节对齐" class="headerlink" title="6 字节对齐"></a>6 字节对齐</h4><p>对齐参数：n为字节对齐数，取值为1、2、4、8，默认是8 #pragma pack（8）</p>
+<p>如果这个值比结构体成员的sizeof小，那么偏移量应该以此值为准，就是说结构体成员的偏移量应该取二者的最小值。 </p>
+<h4 id="7-Switch语句反汇编"><a href="#7-Switch语句反汇编" class="headerlink" title="7 Switch语句反汇编"></a>7 Switch语句反汇编</h4><p>分支少于4的时候，用switch没有意义，因为编译器会生成if…else…之类的反汇编</p>
+<p>case后面的常量可以是无序的，并不影响大表的生成</p>
+<p>一个语句就可以判断</p>
+<p> switch语句要持续连续才能生成大表，如果有一些不太连续，则生成小表。</p>
+<h4 id="8-指针"><a href="#8-指针" class="headerlink" title="8 指针"></a>8 指针</h4><p>“带*类型”：</p>
+<p>宽度：char、short加个*号变成四个字节；</p>
+<p>带*类型的变量宽度永远是四字节，无论类型是什么，无论有几个</p>
+<p>赋值的时候只能使用”完整的方式 “</p>
+<p>带*类型变量+N &#x3D; 带 *类型变量+N*(去掉一个*后类型的宽度)</p>
+<p>带*类型变量-N &#x3D; 带 *类型变量-N*(去掉一个*后类型的宽度)</p>
+<p>减法操作求差值的时候应该除以四</p>
+<p>&amp;是获取地址，但不能用于常量上。</p>
+<p>*是获取指针里面指向的值</p>
+<p>&amp;a的类型就是a的类型+ *</p>
+<p>int* x     *x &#x3D;&#x3D;int<br>char*x   *x&#x3D;&#x3D;char</p>
+<p>eg：<strong>a&#x3D;10;</strong><br>        mov dword ptr [ebp-4],0Ah<br>        <strong>pa&#x3D;&amp;a;</strong><br>        lea eax,[ebp-4]<br>        mov dword ptr [ebp-8],eax<br>        *<em>x1&#x3D;<em>pa;</em></em><br>       mov ecx,dword ptr [ebp-8])<br>       mov edx,dword ptr [ecx]）（取ecx地址中的值）<br>       mov dword ptr [ebp-0Ch],edx</p>
+<p>char* x &#x3D;“china”； x中存的是常量的地址，不能修改<br>char y[]&#x3D;“china”；y是常量字符串的拷贝</p>
+<p><strong>指针数组</strong></p>
+<p>是个数组，里面存的指针</p>
+<p>int* arr[5]&#x3D;{0};<br>arr[0] &#x3D; (int*)10   需要强制转换类型<br>arr[1] &#x3D; (int*)10<br>int* arr[5]&#x3D;{&amp;a,&amp;b,&amp;c,&amp;d,&amp;e};<br>char *p1&#x3D;&amp;a1</p>
+<p><strong>结构体指针</strong></p>
+<p>Struct Arg{int a;int b;int c }<br>Arg* p;<br>p &#x3D;(Arg*)100;  存储数据的宽度是4<br>p++; 做运算时，要去掉一颗* ，再看剩下的类型有多大。<br>printf（”%d\n“,p）p&#x3D;112&#x3D;100+3*4</p>
+<p>&#x2F;&#x2F;调用<br>Arg s;<br>s.a&#x3D;10;<br>s.b&#x3D;20;<br>s.c&#x3D;30;<br>Arg* px &#x3D;&amp;s;<br>lea eax ,[ebp-0Ch]放的是地址<br>printf(“%d\n”,px-&gt;a)  &#x2F;&#x2F;10</p>
+<p><strong>不同写法的反汇编</strong></p>
+<p>printf(“%d\n”,*p1);<br>printf(“%d\n”,*(p1+0));<br>printf(“%d\n”,p1[0])<br>mov eax ,dword ptr [ebp-4];<br>movsx ecx.byte ptr [eax];<br>push ecx;</p>
+<p>printf(“%d\n”,*(p1+2))<br>mov edx,dword ptr [ebp-4]<br>movsx eax,byte ptr[edx+2]<br>push eax</p>
+<p>printf(“%d\n”,*(*p1+1))<br>mov eax,dowrd ptr [ebp-8]<br>mov ecx,dowrd ptr [eax+4]<br>mov edx,dowrd ptr [ecx]</p>
+<p>printf(“%d\n”,*(*p1+1)+1)<br>mov eax,dowrd ptr [ebp-8]<br>mov ecx,dowrd ptr [eax+4]<br>mov edx,dowrd ptr [ecx+1] &#x2F;&#x2F;是char*类型</p>
+<p>printf(“%d\n”,*(*p1+2)+3)<br>mov eax,dowrd ptr [ebp-8]<br>mov ecx,dowrd ptr [eax+8]<br>mov edx,dowrd ptr [ecx+3] &#x2F;&#x2F;是char*类型</p>
+<p>p1&#x3D;&amp;i;&#x2F;&#x2F;lea<br>p2&#x3D;&amp;p1&#x2F;&#x2F;lea<br>printf(“%d\n”,*(*p2))</p>
+<p><strong>数组指针</strong></p>
+<p>int (*px)[5]; *px int[5]<br>&#x2F;&#x2F;宽度sizeof(px)&#x3D;4<br>&#x2F;&#x2F;赋值 px&#x3D;(int(*)[5])10;<br>&#x2F;&#x2F;++<br>printf(“%d\n”,px);<br>px&#x3D;px+3;&#x2F;&#x2F;60&#x3D;4*5*3</p>
+<p>int arr[16]&#x3D;{1,2,3,4,5,6,7,8,9,19…}<br>int (*px)[2];<br>px&#x3D;(int(*)[2])arr;<br>printf(*(*px)) &#x2F;&#x2F; 1<br>printf(*(*px+3)+3))&#x2F;&#x2F;10&#x3D;2*3+3(往后面查三个)</p>
+<p>取二维数组指针中的值得加三个*号</p>
+<p>计算宽度</p>
+<p><strong>二维数组指针</strong></p>
+<p>int(*py)[2][3]<br>py &#x3D;(int(*)[2][3])code;<br>printf(“%x\n”,*(*(*py+3)+2)+5)）&#x2F;&#x2F;4*2*3(py的宽度)*2&#x3D;48   &#x2F;&#x2F;4*3*2&#x3D;24   &#x2F;&#x2F;4*2&#x3D;8</p>
+<p><strong>三维数组指针</strong></p>
+<p>char(*px)[2][3][2];<br>px &#x3D;(char (*)[2][3][2])code;<br>printf(“%x\n”,*(*(*(*py+2)+2)+2)+2)）;&#x2F;&#x2F;1*2*3*2*2&#x3D;24   &#x2F;&#x2F;1*3*2*2&#x3D;12  &#x2F;&#x2F;1*2*2   &#x2F;&#x2F;1*2</p>
+<h2 id="OllyD"><a href="#OllyD" class="headerlink" title="OllyD"></a>OllyD</h2><p>f2：加断点</p>
+<p>f8：执行下一步0000000000000000</p>
+<p>f7：跳转进函数</p>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><h4 id="汇编中的移位指令"><a href="#汇编中的移位指令" class="headerlink" title="汇编中的移位指令"></a><strong>汇编中的移位指令</strong></h4><p><strong>1.算术移位指令</strong></p>
+<p>sal&#x2F;sar reg&#x2F;mem ，cl&#x2F;imm</p>
+<p>sal：算术左移  空的位置补0</p>
+<p>sar：算术右移  空的位置补符号位</p>
+<p><strong>2.逻辑移位指令</strong></p>
+<p>shl：逻辑左移  空的位置补0</p>
+<p>shr：逻辑右移  空的位置补0</p>
+<p><strong>3.循环移位指令</strong></p>
+<p>rol 循环左移 rol循环右移  空的位置补移出去的数</p>
+<p><strong>4.带进位的循环移位指令</strong></p>
+<p>rcl：带进位循环左移</p>
+<p>rcr：带进位循环右移</p>
+<h4 id="C语言中的移位指令"><a href="#C语言中的移位指令" class="headerlink" title="C语言中的移位指令"></a><strong>C语言中的移位指令</strong></h4><p>&lt;&lt;  &#x3D; shl  有符号还是无符号都是shl</p>
+<p>&gt;&gt; 有符号 sar   无符号  shr</p>
+<h2 id="PE"><a href="#PE" class="headerlink" title="PE"></a>PE</h2><p>#if  !defined<br>#endif</p>
+<p>int *ptr;<br>ptr &#x3D; (int*)malloc(sizeof(int)*128);&#x2F;&#x2F;在堆中申请内存，分配128个int<br>if(ptr &#x3D;&#x3D; NULL)&#x2F;&#x2F;无论申请的空间大小，一定要进行校验，判断是否申请成功了<br>{<br>returm 0;<br>}<br>memset(ptr,0,sizeof(int)*128)&#x2F;&#x2F;初始化分配的内存空间<br>free(ptr)&#x2F;&#x2F;释放申请的堆空间<br>ptr&#x3D;NULL&#x2F;&#x2F;将指针设置为NULL</p>
+<p><strong>小练习1</strong></p>
+<p>1.安装winhex<br>2.将记事本的.exe文件读取到内存，并返回读取后在内存中的地址<br>3.将内存中的数据存储到一个文件中，(.exe格式)，然后双击打开，看是否能够使用、</p>
+<p>硬盘对齐：200h、内存对齐：1000h 用0填充</p>
+<h4 id="PE结构"><a href="#PE结构" class="headerlink" title="PE结构"></a>PE结构</h4><h4 id="1-DOS头（大小是确定的）"><a href="#1-DOS头（大小是确定的）" class="headerlink" title="1.DOS头（大小是确定的）"></a><strong>1.DOS头（大小是确定的）</strong></h4><p>WORD e_magic     &#x2F;&#x2F;5A4D  ,判断是否是可执行文件<br>DWORD e_lfanew &#x2F;&#x2F;PE文件头地址往下找，用于定位PE文件</p>
+<h4 id="2-PE头"><a href="#2-PE头" class="headerlink" title="2.PE头"></a><strong>2.PE头</strong></h4><p>pe文件头标识（4个字节）</p>
+<p>标准PE头（20个字节）</p>
+<p>WORD Machine  程序运行的CPU型号 0x14C 386以及后续处理器<br><strong>WORD NumberOfSections</strong>  文件中存在的节的总数，如果要更新增节或者合并节就要修改这个值<br>DWORD TimeDateStamp 时间戳：文件的创建时间<br><strong>WORD SizeOfOptionalHeader</strong> 可选PE头的大小，32位PE头大小默认E0h 64位默认F0h<br>WORD Characteristics 每个位有不同的含义，可执行文件值为10F</p>
+<p>可选PE头</p>
+<p>​    <strong>WORD    Magic</strong>;*   说明文件类型：10B 32位下的PE文件 20B 64位下的PE文件<br>​    BYTE    MajorLinkerVersion;<br>​    BYTE    MinorLinkerVersion;<br>​    DWORD   SizeOfCode;*  所有代码节的和，必须是FileAlignment的整数倍 ，编译器填的，没用<br>​    DWORD   SizeOfInitializedData;*  已初始化数据大小的和，同上<br>​    DWORD   SizeOfUninitializedData;*  未初始化数据大小的和，同上<br>​    <strong>DWORD   AddressOfEntryPoint</strong>;* 程序入口<br>​    DWORD   BaseOfCode;*  代码开始的基址，编译器填的，没用<br>​    DWORD   BaseOfData;*  数据开始的基址，编译器填的，没用<br>​    DWORD   <strong>ImageBase</strong>;* 内存镜像基址（内存中所有的数据是从哪里开始的）一般imageBase+addressofentrypoint<br>​    DWORD   <strong>SectionAlignment</strong>;* 内存对齐<br>​    DWORD   <strong>FileAlignment</strong>;* 文件对齐<br>​    WORD    MajorOperatingSystemVersion;<br>​    WORD    MinorOperatingSystemVersion;<br>​    WORD    MajorImageVersion;<br>​    WORD    MinorImageVersion;<br>​    WORD    MajorSubsystemVersion;<br>​    WORD    MinorSubsystemVersion;<br>​    DWORD   Win32VersionValue;<br>​    <strong>DWORD   SizeOfImage</strong>;* 内存中整个PE文件的大小，可以比实际的大<br>​    <strong>DWORD   SizeOfHeaders</strong>;* 所有头+节表按照文件对齐后的大小<br>​    DWORD   CheckSum;* 校验和，判断文件是否被修改<br>​    WORD    Subsystem;<br>​    WORD    DllCharacteristics;<br>​    DWORD   SizeOfStackReserve;* 初始化时保留的堆栈大小<br>​    DWORD   SizeOfStackCommit;* 初始化时实际提交的大小<br>​    DWORD   SizeOfHeapReserve;* 初始化时保留的堆大小<br>​    DWORD   SizeOfHeapCommit;* 初始化时实践提交的大小<br>​    DWORD   LoaderFlags;<br>​    DWORD   NumberOfRvaAndSizes;</p>
+<p>联合类型：<br>union Test<br>{ char x；int y；}<br>union<br>{ char x；int y；}Test</p>
+<p>他们的意义是不同的 </p>
+<p>特点：联合体的成员是共享内存空间的<br>           联合体的内存空间大小是联合体成员中对内存空间大小要求最大的空间大小<br>           联合体最多只有一个成员有效（空间分配上） </p>
+<h4 id="3-节表"><a href="#3-节表" class="headerlink" title="3 节表"></a>3 节表</h4><p>相当于一个目录，节表是一个结构体数组。表示了数据在哪,怎么存储。</p>
+<p>节表位置：计算可选PE头的大小，标准PE头里有DOS头+PE头+OPTIONPE头 </p>
+<p>节表个数：标准PE头里面的numberofsections</p>
+<p>typedef struct _IMAGE_SECTION_HEADER {<br>    BYTE    Name[IMAGE_SIZEOF_SHORT_NAME]; &#x2F;&#x2F;8个字节名字，自己可以起，编译器可以给定，不重要。<br>    union {<br>            DWORD   PhysicalAddress;<br>            DWORD   VirtualSize;           &#x2F;&#x2F;节没有对齐后的真实尺度，也就是没有对齐，节数据有多大。(在内存中)<br>               } Misc;         &#x2F;&#x2F;该值可以不准确，可以删掉<br>    DWORD   VirtualAddress;　　　　　&#x2F;&#x2F;节区在<strong>内存中</strong>的第一个字节的地址.也就是虚拟地址.节在内存中哪里开始.内存中的VA + ImageBase 才是真正的节开始位置<br>    DWORD   <strong>SizeOfRawData</strong>;　　　　&#x2F;&#x2F;节在<strong>文件中</strong>对齐后的尺寸.跟是可选头中文件对齐的整数倍. sizeofRawData &#x2F;文件对齐&#x3D;&#x3D;0<br>    DWORD   PointerToRawData;　　　　 &#x2F;&#x2F;节在<strong>文件中</strong>的偏移.是文件对齐成员倍数.<br>    DWORD   PointerToRelocations;           &#x2F;&#x2F;以下都是调试相关.<br>    DWORD   PointerToLinenumbers;           &#x2F;&#x2F;<br>    WORD    NumberOfRelocations;<br>    WORD    NumberOfLinenumbers;<br>    DWORD   Characteristics;　　　　　　　　　　&#x2F;&#x2F;节的属性<br>} IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211014171018038.png" alt="image-20211014171018038" style="zoom:50%;" />
+
+
+
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20211014171359099.png" alt="image-20211014171359099" style="zoom: 67%;" />
+
+<p><strong>小练习2</strong></p>
+<p>1、编写程序打印节表中的信息。</p>
+<p>2、根据节表中的信息。到文件中找到所有的节，观察节的开始位置与大小是否与节表中的描述一致。</p>
+<p>文件—&gt;filebuffer—&gt;image(内存映像)—&gt;运行状态</p>
+<p>内存中地址为501234，那么在filebuffer中地址是多少？</p>
+<p>节：PointerToRawData&#x3D;400   在virtualaddress&#x3D;1000，</p>
+<p>节：PointerToRawData&#x3D;600   在virtualaddress&#x3D;2000，</p>
+<p>节：PointerToRawData&#x3D;800   在virtualaddress&#x3D;3000。</p>
+<p>imagebuffer是从50000开始</p>
+<p>1.501234-500000&#x3D;1234</p>
+<p>2.循环判断1234&gt;virtualAddress&amp;&amp;&lt;virtualAddress+misc.virtualsize</p>
+<p>3.1234-1000&#x3D;234</p>
+<p>4.400+234&#x3D;634</p>
+<p><strong>小练习3</strong></p>
+<p>1.实现以下功能</p>
+<p>文件–&gt;filebuffer–&gt;imagebuffer–&gt;newbuffer–&gt;newbuffer–&gt;存盘</p>
+<p>（先复制头的大小，再遍历节表）(不太懂字节的转换)</p>
+<p>2.编写一个函数，能够将RVA的值转化成FOA。</p>
+<h4 id="4-代码空白区添加代码"><a href="#4-代码空白区添加代码" class="headerlink" title="4 代码空白区添加代码"></a>4 代码空白区添加代码</h4><p>CALL 0x12345678</p>
+<p>E8 53 FE FF FF</p>
+<p>JMP 0x12345678 </p>
+<p>E9 2B 2B 00 00</p>
+<p>真正要跳转的地址 &#x3D; E8这条指令的下一行地址+x(53 FE FF FF)</p>
+<p>x&#x3D;真正要跳转的地址-E8这条指令的下一行地址</p>
+<p>要跳转的地址&#x3D;E8当前的地址+5+x</p>
+<p>x&#x3D;要跳转的地址-（E8当前的地址+5）</p>
+<p>E8当前的地址是拉伸后的地址</p>
+<p>大体步骤：</p>
+<p>1、获取messagebox地址，构造shellcode联系(6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00 )，因为messagebox中有（4次push 0，1次call，1次jump）<br>2、E8 E9计算公式<br>3、在代码去手动添加代码<br>4、修改OEP，指向shellcode（可选PE头）</p>
+<p><strong>小练习4</strong></p>
+<p>一、在代码的空白区手动添加一段代码(修改程序入口，再容得下他的空间里放代码)</p>
+<p>1.messagebox的地址是：76E6ED60 &gt;  8BFF            MOV EDI,EDI</p>
+<p>2.修改OPE为 新的函数（call 0x12345678），再jmp回原来的OPE（jmp）</p>
+<p>4.构造出来的程序为：</p>
+<p>6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00 </p>
+<p>E8后面是x&#x3D;messagebox的地址-（E9的地址+imagebase）<br>E9后面是y&#x3D;（入口地址entrypoint+imagebase）-E9下一条指令的地址</p>
+<p>5.修改OEP</p>
+<p>二、任意代码空白区添加代码</p>
+<p><strong>小练习5</strong></p>
+<p>一、新增一个节表和节</p>
+<p>二、在新增的节中添加代码</p>
+<p>SizeOfHeader -（DOS + 垃圾数据 +PE标记 + 标准PE头 + 可选PE头 + 已存在节表）&gt;&#x3D;2个节表的大小</p>
+<p>需要修改的数据：1）添加一个新的节2）在新增节后面，填充一个节大小000 3）修改PE头中节的数量</p>
+<p>4）修改sizeOfImage的大小 5）在原有的数据最后，新增一个节的数据（内存对齐的整数倍 ）6）新增节表的属性</p>
+<p><strong>小练习6</strong></p>
+<p><strong>扩大节</strong></p>
+<p>1.拉伸到内存</p>
+<p>2.分配一块新的空间：SizeOfImage+Ex</p>
+<p>3.将最后一个节的SizeOfRawData和VirtualSize改成N</p>
+<p>SizeOfRawData&#x3D;VirtualSize&#x3D;N</p>
+<p>N&#x3D;（SizeOfRawData或者VirtualSize内存对齐后的值）+Ex</p>
+<p>4.修改SizeOfImage的大小</p>
+<p>SizeOfImage&#x3D;SizeOfImage+Ex</p>
+<p><strong>合并节</strong></p>
+<p>1.拉伸到内存</p>
+<p>2.将第一个节的内存大小、文件大小改成一样</p>
+<p>Max&#x3D;SizeOfData&gt;VirtualSize？ SizeofRawData：VirtualSize</p>
+<p>SizeOfRawData&#x3D;VirtualSize&#x3D;最后一个节的VirtualAddress+Max-SizeOfHeaders内存对齐后的大小</p>
+<p>3.将第一个节的属性改为包含所有节的属性</p>
+<p>4.修改节的数量为1</p>
+<h4 id="5-静态链接库-动态链接库"><a href="#5-静态链接库-动态链接库" class="headerlink" title="5.静态链接库-动态链接库"></a>5.静态链接库-动态链接库</h4><p>静态链接库的二进制代码直接编译到exe文件中去了</p>
+<p><strong>1-1.创建静态链接库</strong></p>
+<p>1.在VC6中创建项目：win32 static library</p>
+<p>2.在项目中创建两个文件：xxx.h和xxx.cpp</p>
+<p>3.编译</p>
+<p><strong>1-2.使用静态链接库</strong></p>
+<p>方式一：</p>
+<p>将xxx.h和xxx.lib复制到要使用的项目中</p>
+<p>在需要使用的文件中包含：#include”xxx.h”</p>
+<p>在需要使用的文件中包含：#pragma comment(lib,”xxx.lib”)</p>
+<p>方式二：</p>
+<p>将xxx.h和xxx.lib复制到要使用的项目中</p>
+<p>在需要使用的文件中包含：#inlcude”xxx.h”</p>
+<p>然后在project setting中设置lib文件</p>
+<p><strong>2-1.创建动态链接库</strong></p>
+<p>动态链接库头文件中：extern “c” _declspec(dllexport) _stdcall int Plus(int x,int y);</p>
+<p>extern表示这是个全局函数，可以供各个其他的函数调用</p>
+<p>c是按照c语言的方式进行编译、链接</p>
+<p>_declspec(dllexport)告诉编译器此函数为导出函数</p>
+<p><strong>2-2 使用动态链接库</strong></p>
+<p>方式一：隐式链接</p>
+<p>将*.dll *.lib放到工程目录下面</p>
+<p>将#pragma comment(lib,”DLL名.lib”)添加到调用文件中</p>
+<p>加入函数的声明extern “c” _declspec(dllimport) _stdcall int Plus(int x,int y);</p>
+<p>方式二：显式链接</p>
+<p>1.定义函数指针typedef int (_stdcall *lpPlus)(int,int)</p>
+<p>2.声明函数指针变量lpPlus myPlus</p>
+<p>3.动态加载dll到内存中HINSTANCE hModule&#x3D;LoadLibrary（”DllDemo.dll”）</p>
+<p>4.获取函数地址myPlus&#x3D;(lpPlus)GetProcAddress(hModule,”_Plus@8”)</p>
+<p>5.调用函数int a &#x3D;myPlus(10,2);</p>
+<h4 id="6-导出表"><a href="#6-导出表" class="headerlink" title="6 导出表"></a>6 导出表</h4><p>1.如何定位导出表：</p>
+<p>数据目录项的第一个结构，就是导出表</p>
+<p>typedef struct _IMAGE_DATA_DIRECTORY{<br>DWORD VirtualAddress;&#x2F;&#x2F;导出表的RVA<br>DWORD Size;&#x2F;&#x2F;导出表的大小<br>}IMAGE_DATA_DIRECTORY,*PIMAGE_DATA_DIRECTORY;</p>
+<p>2.导出表结构</p>
+<p>如何在FileBuffer中找到这个结构呢？在VirtualAddress中存储的是RVA，如果想在FileBuffer中定位，必须要将该RVA转换成FOA。</p>
+<p>AddressOfFunctions说明：<br>    该表中元素宽度为4个字节<br>    该表中存储所有导出函数的地址<br>    该表中个数由NumberOfFunctions决定<br>    该表项中的值是RVA, 加上ImageBase才是函数真正的地址<br>    定位：<br>    IMAGE_EXPORT_DIRECTORY-&gt;AddressOfFunctions 中存储的是该表的RVA 需要先转换成FOA</p>
+<p>AddressOfNames说明：<br>  该表中元素宽度为4个字节<br>  该表中存储所有以名字导出函数的名字的RVA<br>  该表项中的值是RVA, 指向函数真正的名称</p>
+<p>typedef struct _IMAGE_EXPORT_DIRECTORY {    </p>
+<p>DWORD   Characteristics;				&#x2F;&#x2F; 未使用<br>DWORD   TimeDateStamp;				&#x2F;&#x2F; 时间戳<br>WORD    MajorVersion;				&#x2F;&#x2F; 未使用<br>WORD    MinorVersion;				&#x2F;&#x2F; 未使用<br>DWORD   Name;				        &#x2F;&#x2F; 指向该导出表文件名字符串<br>DWORD   Base;				        &#x2F;&#x2F; 基数，加上序数就是函数地址数组的索引值<br>DWORD   NumberOfFunctions;			&#x2F;&#x2F; 所有导出函数的个数       最大的序号-最小的序号+1<br>DWORD   NumberOfNames;				&#x2F;&#x2F; 以函数名字导出的函数个数<br>DWORD   AddressOfFunctions;         &#x2F;&#x2F; 导出函数地址表RVA<br>DWORD   AddressOfNames;             &#x2F;&#x2F; 导出函数名称表RVA<br>DWORD   AddressOfNameOrdinals;      &#x2F;&#x2F; 导出函数序号表RVA<br>} IMAGE_EXPORT_DIRECTORY, *PIMAGE_EXPORT_DIRECTORY;  </p>
+<p>导出函数两种方式： (1)名字导出 (2)序号导出</p>
+<p><strong>小练习7</strong></p>
+<p>1.编写程序打印所有的导出表信息</p>
+<p>2.GetFuctionAddrByName（FileBuffer指针，函数名指针）</p>
+<p>3.GetFuctionAddrByOrdinals（FileBuffer指针，函数名导出序号）</p>
+<h4 id="7-重定位表"><a href="#7-重定位表" class="headerlink" title="7 重定位表"></a>7 重定位表</h4><p>1.通过IMAGE_DATA_DIRECTORY结构的VirtualAddress属性，找到第一个IMAGE_BASE_RELOCATION</p>
+<p>2.判断一共有几块数据：</p>
+<p>最后一个结构的VirtualAddress与sizeofblock都为0</p>
+<p>3.具体项 宽度：2字节</p>
+<p>TypeOffset 是一个数组，数组每项大小为两个字节（16位），它由高 4位和低 12位组成，高 4位代表重定位类型，低 12位是重定位地址，它与 VirtualAddress 相加即是指向PE 映像中需要修改的那个代码的地址。</p>
+<p>具体项高四位的值为3：代表是的需要修改的数据</p>
+<p>值为0：代表的是用于数据对齐的数据，不用修改</p>
+<p>4.VirtualAddress 宽度：4字节</p>
+<p>当前这一个块的数据，每一个低12的值+VirtualAddress才是真正需要修复的数据的RVA</p>
+<p>真正的RVA&#x3D;VirtualAddress+具体项的低12位</p>
+<p>5.SizeOfBlock 宽度：4字节</p>
+<p>当前块的总大小</p>
+<p>具体项的数量&#x3D;（SizeOfBlock-8）&#x2F;2</p>
+<p><strong>小练习8</strong></p>
+<p>打印重定位表</p>
+<h4 id="8-移动导出表-重定位表"><a href="#8-移动导出表-重定位表" class="headerlink" title="8 移动导出表-重定位表"></a>8 移动导出表-重定位表</h4><p>在程序启动的时候，系统会根据这些表做初始化的工作</p>
+<p>比如，将用到的DLL中的函数地址存储到IAT表中</p>
+<p>为了保护程序，可以对.exe的二进制代码进行加密操作，但问题是：各种表的信息与客户字节代码和数据混淆在一起，如果进行加密，那系统在初始化的时候会出问题，因此移动各种表，是对程序加密&#x2F;破解的基础</p>
+<p><strong>移动导出表的步骤</strong></p>
+<p>1.在DLL中新增一个节，并返回新增后的FOA（filebuffer中）</p>
+<p>2.复制AddressOfFunctions（从起始位置开始）；长度：4*NumberOfFunctions</p>
+<p>3.复制AddressOfOrdinals；长度：2*NumberOfNames</p>
+<p>4.复制AddressOfNames；长度：4*NumberOfNames</p>
+<p>5.复制所有的函数名</p>
+<p>长度不确定，复制时直接修复AddressOfNames，边复制边算下一个地址在哪</p>
+<p>6.复制IMAGE_EXPORT_DIRECTORY结构中的<br>AddressOfFunctions<br>AddressOfNameOrdinals<br>AddressOfNames</p>
+<p><strong>移动重定位表</strong></p>
+<h4 id="9-IAT表（导入地址表）"><a href="#9-IAT表（导入地址表）" class="headerlink" title="9 IAT表（导入地址表）"></a>9 IAT表（导入地址表）</h4><p>7604中存储的是MessageBox，是函数名称<br>可以看出程序运行前和运行后不同<br>是使用了动态链接库，动态链接库只有在程序运行时才会加载到程序中<br>如果调用是我们自己写的程序，地址都是写死的</p>
+<p>为了防止dll文件重定位，所以调用dll中函数时不能将地址直接确定<br>所有dll加载完后，在确定地址</p>
+<p>可以从导入表的firstthunk找到，可以通过目录结构找到</p>
+<h4 id="10-导入表"><a href="#10-导入表" class="headerlink" title="10 导入表"></a>10 导入表</h4><p>typedef struct _IMAGE_IMPORT_DESCRIPTOR {<br>    union {<br>        DWORD   Characteristics;<br>        DWORD   OriginalFirstThunk; &#x2F;&#x2F; 指向 导入名称表INT（ImportNameTable）的RVA，DLL中的函数&#x2F;名称<br>    } DUMMYUNIONNAME;<br>    DWORD   TimeDateStamp;<br>    DWORD   ForwarderChain;<br>    DWORD   Name;                   &#x2F;&#x2F; 指向 DLL名称的地址 RVA<br>    DWORD   FirstThunk;             &#x2F;&#x2F; 指向 导入地址表IAT（ImportAddressTable）的RVA<br>} IMAGE_IMPORT_DESCRIPTOR;<br>typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;</p>
+<p>1.定位导入表</p>
+<p>目录项的第二个结构就是导入表（将RVA转换城FOA）</p>
+<p>sizeof(IMAGE_IMPORT_DESCRIPTOR)&#x3D;0 代表导入表结束</p>
+<p>2.输出DLL名字</p>
+<p>DWORD   Name;                   &#x2F;&#x2F; 指向 DLL名称的地址 RVA</p>
+<p>3.遍历OriginalFirstThunk</p>
+<p>判断最高位是否为1 如果为1，那么除去最高位的值，就是函数的导出序号，调用函数GetProcAddr(m,函数的名字或者导出序号);得到如果不是1，那么这个值是一个RVA 指向IMAGE_IMPORT_BY_NAME（hint，name）</p>
+<p>typedef struct _IMAGE_IMPORT_BY_NAME {<br>    WORD    Hint;   &#x2F;&#x2F; 如不为空，值为函数在导出表中的索引<br>    CHAR   Name[1]; &#x2F;&#x2F; 函数名的第一字节，到0结束<br>} IMAGE_IMPORT_BY_NAME, *PIMAGE_IMPORT_BY_NAME;</p>
+<p>4.遍历FirstThunk（IAT表）</p>
+<p>PE文件加载前，IAT表和INT表的完全相同的，所以此时IAT表也可以判断函数导出序号，或指向函数名字结构体。</p>
+<p>而在加载后，差别就是IAT表发生变化，系统会先根据结构体变量Name加载对应的dll（拉伸），读取dll的导出表，对应原程序的INT表，匹配dll导出函数的地址，返回其地址，贴在对应的IAT表上，挨个修正地址（也就是GetProcAddress的功能）。</p>
+<p><strong>小练习10</strong></p>
+<p>打印导入表</p>
+<h4 id="11-绑定导入表"><a href="#11-绑定导入表" class="headerlink" title="11 绑定导入表"></a>11 绑定导入表</h4><p>一般情况下，在程序加载前IAT表和INT表中的内容相同，都是程序引用的dll中的函数的函数名或序号；</p>
+<p>加载完成后IAT表中将替换为函数的真正地址；但在加载前IAT表中直接写绝对地址是可以实现的；</p>
+<p>加载前在IAT表中保存绝对地址的优点：启动程序快；</p>
+<p>在启动程序时需要：申请4gb内存空间、贴exe、贴dll、将IAT表修复为地址等等；</p>
+<p>如果直接用绝对地址，则省去了修复IAT表的操作；</p>
+<p><strong>如何判断绑定导入</strong></p>
+<p>PE加载EXE相关的DLL时，首先会根据IMAGE_IMPORT_DESCRIPTOR结构中的TimeDateStamp来判断是否要重新计算IAT表中的地址。   </p>
+<p>TimeDateStamp（时间戳）&#x3D;&#x3D;0 未绑定</p>
+<p>TimeDateStamp&#x3D;&#x3D;-1 已绑定 真正的绑定时间在绑定导入表里</p>
+<p>绑定导入表的定位：数据目录的第十二项</p>
+<p>结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_IMPORT_DESCRIPTOR</span> &#123;</span></span><br><span class="line">    DWORD   TimeDateStamp;<span class="comment">//时间戳</span></span><br><span class="line">    WORD    OffsetModuleName;<span class="comment">//DLL的名字；注意保存的既不是RVA也不是FOA,  dll的名字计算公式为：第一个DESCRIPTOR的值+OffsetModuleName</span></span><br><span class="line">    WORD    NumberOfModuleForwarderRefs;<span class="comment">//当前dll另外依赖的dll数量；因为dll也可能依赖dll；</span></span><br><span class="line">&#125; IMAGE_BOUND_IMPORT_DESCRIPTOR,  *PIMAGE_BOUND_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></table></figure>
+
+<p> 绑定导入表结构后面紧跟的并不一定是下一个绑定导入表；</p>
+<p>如果NumberOfModuleForwarderRefs为N则还有N个另外的结构，该结构为REF也是用来描述dll的；</p>
+<p>结构如下：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_FORWARDER_REF</span> &#123;</span></span><br><span class="line">    DWORD   TimeDateStamp;</span><br><span class="line">    WORD    OffsetModuleName;</span><br><span class="line">    WORD    Reserved;<span class="comment">//属性Reserved为保留字段没意义；</span></span><br><span class="line">&#125; IMAGE_BOUND_FORWARDER_REF, *PIMAGE_BOUND_FORWARDER_REF;</span><br></pre></td></tr></table></figure>
+
+<p>当IMAGE_BOUND_IMPORT_DESCRIPTOR结构中的TimeDateStamp与DLL文件标准PE头中的TimeDateStamp值不相符时，或者DLL需要重新定位的时候，就会重新计算IAT中的值。</p>
+<p><strong>小练习11</strong></p>
+<p>打印绑定导入表</p>
+<h4 id="12-导入表注入"><a href="#12-导入表注入" class="headerlink" title="12 导入表注入"></a>12 导入表注入</h4><p>导入表注入原理：</p>
+<p>当exe被加载时，系统会根据exe导入表信息来加载需要用到的dll，导入表注入的原理就是修改exe导入表，将自己的dll添加到exe导入表中，这样exe运行时可以将自己的dll加载到exe的进程空间。</p>
+<p>先挪动20个字节的导入表，接着再追加INT和IAT表（至少八个字节），还有个存名字的结构。指向偏移也要改变。</p>
+<p>实现步骤：</p>
+<p>第一步：根据目录项(第二个就是导入表)得到导入表信息：       </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DATA_DIRECTORY</span> &#123;</span>     </span><br><span class="line">DWORD   VirtualAddress; <span class="comment">//指向导入表结构     </span></span><br><span class="line">DWORD   Size;  <span class="comment">//导入表的总大小    </span></span><br><span class="line">&#125; IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;          </span><br></pre></td></tr></table></figure>
+
+<p>第二步：         </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_DESCRIPTOR</span> &#123;</span>     </span><br><span class="line"><span class="class"><span class="keyword">union</span> &#123;</span>        </span><br><span class="line">    DWORD   Characteristics;                </span><br><span class="line">    DWORD   OriginalFirstThunk; &#125;;          </span><br><span class="line">DWORD   TimeDateStamp;                    </span><br><span class="line">DWORD   ForwarderChain;                   </span><br><span class="line">DWORD   Name;        </span><br><span class="line">DWORD   FirstThunk;   &#125; IMAGE_IMPORT_DESCRIPTOR;                    </span><br></pre></td></tr></table></figure>
+
+<p>A（导入表）:20字节  B（INT&amp;IAT）:16字节  C（NAME）：取决于DLL名称的长度 D(name表)：取决于函数名的长度</p>
+<p>判断哪一个节的空白区 &gt; Size(原导入表的大小) + 20 + A + B + C + D  </p>
+<p>如果空间不够：可以将C&#x2F;D 存储在其他的空白区     也就是，只要空白区 &gt; Size + 0x20就可以了     </p>
+<p>  如果仍然不够，就需要扩大最后一个节，或者新增节来解决. </p>
+<p>第三步：将原导入表全部Copy到空白区 </p>
+<p>第四步：在新的导入表后面，追加一个导入表</p>
+<p>第五步：追加8个字节的INT表 8个字节的IAT表</p>
+<p>第六步：追加一个IMAGE_IMPORT_BY_NAME 结构，前2个字节是0 后面是函数名称字符串   </p>
+<p>第七步：将IMAGE_IMPORT_BY_NAME结构的RVA赋值给INT和IAT表中的第一项  </p>
+<p>第八步：分配空间存储DLL名称字符串，并将该字符串的RVA赋值给Name属性</p>
+<p>第九步：修正IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size</p>
+<p><strong>小练习12</strong></p>
+<p>导入表注入</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -277,16 +581,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          脱壳学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">win32学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -301,143 +673,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-win32学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">win32学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-04-24T12:34:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>win32的一些学习</p>
-        
-          <a class="article-more-a" href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%86%E5%90%91%E9%9C%80%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">逆向需要的知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">常用寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JCC"><span class="toc-number">3.</span> <span class="toc-text">JCC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A"><span class="toc-number">4.</span> <span class="toc-text">调用约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-number">6.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%86%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-number">7.</span> <span class="toc-text">逆向分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="toc-number">8.</span> <span class="toc-text">C语言基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BD%AC%E5%8C%96"><span class="toc-number">8.0.1.</span> <span class="toc-text">1 数据类型的转化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF%E6%80%8E%E4%B9%88%E4%BC%A0%E9%80%92%E7%9A%84"><span class="toc-number">8.0.2.</span> <span class="toc-text">2 返回值是怎么传递的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%95%B0%E7%BB%84%E7%9A%84%E5%8F%8D%E6%B1%87%E7%BC%96%E6%98%AF%E6%80%8E%E4%B9%88%E8%A1%A8%E7%A4%BA%E7%9A%84"><span class="toc-number">8.0.3.</span> <span class="toc-text">3 数组的反汇编是怎么表示的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-number">8.0.4.</span> <span class="toc-text">4 多维数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%88%E6%B2%A1%E6%9C%89%E5%BE%88%E6%87%82%EF%BC%89"><span class="toc-number">8.0.5.</span> <span class="toc-text">5 结构体（没有很懂）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%AD%97%E8%8A%82%E5%AF%B9%E9%BD%90"><span class="toc-number">8.0.6.</span> <span class="toc-text">6 字节对齐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-Switch%E8%AF%AD%E5%8F%A5%E5%8F%8D%E6%B1%87%E7%BC%96"><span class="toc-number">8.0.7.</span> <span class="toc-text">7 Switch语句反汇编</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%8C%87%E9%92%88"><span class="toc-number">8.0.8.</span> <span class="toc-text">8 指针</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OllyD"><span class="toc-number">9.</span> <span class="toc-text">OllyD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">10.</span> <span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E4%B8%AD%E7%9A%84%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4"><span class="toc-number">10.0.1.</span> <span class="toc-text">汇编中的移位指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4"><span class="toc-number">10.0.2.</span> <span class="toc-text">C语言中的移位指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PE"><span class="toc-number">11.</span> <span class="toc-text">PE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PE%E7%BB%93%E6%9E%84"><span class="toc-number">11.0.1.</span> <span class="toc-text">PE结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-DOS%E5%A4%B4%EF%BC%88%E5%A4%A7%E5%B0%8F%E6%98%AF%E7%A1%AE%E5%AE%9A%E7%9A%84%EF%BC%89"><span class="toc-number">11.0.2.</span> <span class="toc-text">1.DOS头（大小是确定的）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-PE%E5%A4%B4"><span class="toc-number">11.0.3.</span> <span class="toc-text">2.PE头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%8A%82%E8%A1%A8"><span class="toc-number">11.0.4.</span> <span class="toc-text">3 节表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%BB%A3%E7%A0%81%E7%A9%BA%E7%99%BD%E5%8C%BA%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="toc-number">11.0.5.</span> <span class="toc-text">4 代码空白区添加代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-number">11.0.6.</span> <span class="toc-text">5.静态链接库-动态链接库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="toc-number">11.0.7.</span> <span class="toc-text">6 导出表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="toc-number">11.0.8.</span> <span class="toc-text">7 重定位表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E7%A7%BB%E5%8A%A8%E5%AF%BC%E5%87%BA%E8%A1%A8-%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="toc-number">11.0.9.</span> <span class="toc-text">8 移动导出表-重定位表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-IAT%E8%A1%A8%EF%BC%88%E5%AF%BC%E5%85%A5%E5%9C%B0%E5%9D%80%E8%A1%A8%EF%BC%89"><span class="toc-number">11.0.10.</span> <span class="toc-text">9 IAT表（导入地址表）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="toc-number">11.0.11.</span> <span class="toc-text">10 导入表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E7%BB%91%E5%AE%9A%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="toc-number">11.0.12.</span> <span class="toc-text">11 绑定导入表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%B3%A8%E5%85%A5"><span class="toc-number">11.0.13.</span> <span class="toc-text">12 导入表注入</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
   
-    <article id="post-fuzz学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">fuzz学习笔记</a>
-    </h1>
   
 
-        
-        <a href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-04-24T12:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="fuzz的学习笔记"><a href="#fuzz的学习笔记" class="headerlink" title="fuzz的学习笔记"></a>fuzz的学习笔记</h1>
-        
-          <a class="article-more-a" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -460,8 +721,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

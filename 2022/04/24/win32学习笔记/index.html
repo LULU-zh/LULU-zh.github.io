@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>win32学习笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="win32的一些学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="win32学习笔记">
+<meta property="og:url" content="http://example.com/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="win32的一些学习">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-24T12:34:04.000Z">
+<meta property="article:modified_time" content="2022-04-24T12:36:08.510Z">
 <meta property="article:author" content="LULU">
 <meta name="twitter:card" content="summary">
   
@@ -148,174 +152,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-脱壳学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-win32学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">脱壳学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-04-24T12:46:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <span id="more"></span>
-
-<h4 id="基础脱壳教程一：手脱UPX壳"><a href="#基础脱壳教程一：手脱UPX壳" class="headerlink" title="基础脱壳教程一：手脱UPX壳"></a>基础脱壳教程一：手脱UPX壳</h4><p><strong>方法1：单步跟踪</strong></p>
-<p>一步一步跟踪，向上的跳转不能实现，向下的实现，遇到popad要注意，还有遇到很大跨度的跳转一般来说能找到OEP</p>
-<p>然后用OllyDump脱壳</p>
-<p><strong>方法2：ESP定律法</strong></p>
-<p>dd XXXXX（esp的值）<br>hr XXXXX</p>
-<p>或者在数据中跟随，设置硬件断点，再点击运行</p>
-<p><strong>方法3：2次内存镜像法</strong></p>
-<p>找程序段的第一个.rsrc</p>
-<p>再找UPX0</p>
-<p><strong>方法4：一步直达法（UPX壳）</strong></p>
-<p>找popad</p>
-<h4 id="基础脱壳教程2：手脱ASPACK壳"><a href="#基础脱壳教程2：手脱ASPACK壳" class="headerlink" title="基础脱壳教程2：手脱ASPACK壳"></a>基础脱壳教程2：手脱ASPACK壳</h4><p>ASPack 2.12 -&gt; Alexey Solodovnikov</p>
-<p>6种方法脱</p>
-<p>方法1：单步跟踪</p>
-<p>方法2：ESP定律</p>
-<p>方法3：一步直达</p>
-<p>方法4：2次内存镜像</p>
-<p>方法5：模拟跟踪</p>
-<p>tc eip&lt;xxxxxx</p>
-<p>找SFX,imports</p>
-<p>方法6：SFX</p>
-<p>选项卡找到SFX，OD自动跟踪</p>
-<h4 id="基础脱壳教程3：手脱NSPACK（北斗）"><a href="#基础脱壳教程3：手脱NSPACK（北斗）" class="headerlink" title="基础脱壳教程3：手脱NSPACK（北斗）"></a>基础脱壳教程3：手脱NSPACK（北斗）</h4><p>nSPack 1.3 -&gt; North Star&#x2F;Liu Xing Ping</p>
-<p>NsPacK V3.7 -&gt; LiuXingPing *</p>
-<p>下断点at GetVersion</p>
-<h4 id="基础脱壳教程4：手脱FSG壳"><a href="#基础脱壳教程4：手脱FSG壳" class="headerlink" title="基础脱壳教程4：手脱FSG壳"></a>基础脱壳教程4：手脱FSG壳</h4><p>FSG 2.0 -&gt; bart&#x2F;xt</p>
-<p>重点为修复</p>
-<p>手动、查找IAT</p>
-<p><strong>关于到OEP的一些特征代码</strong><br>现在的壳变聪明了，很少再使用Jump X这样的方式来到OEP了。下面介绍几种流行的方法。<br>1、push 寄存器或者地址 retn<br>       这种方法是利用retn来实现远跳转的，原理同call子程序的后返回的原理一样，即通过push一个值到堆栈顶，然后用retn指令即可返回到堆栈顶指向的地址。<br>2，mov dword ptr[*]，xxxx<br>jnz xxxx<br>retn<br>push 0 这个地址是上面的mov指令动态填写的<br>retn<br>这样的条转在ASPac和ASprotect中使用过。<br>3，mov 寄存器，*<em>X<br>     call 寄存器<br>这个在穿山甲的壳中可以看到。<br>4，还有使用Leave指令进行跳转的也可以注意下。<br>5，使用SEH。后面会提到。</em>*</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/%E8%84%B1%E5%A3%B3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-反汇编学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">反汇编学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-04-24T12:43:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="逆向需要的知识"><a href="#逆向需要的知识" class="headerlink" title="逆向需要的知识"></a>逆向需要的知识</h2>
-        
-          <a class="article-more-a" href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-win32学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">win32学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      win32学习笔记
     </h1>
   
 
@@ -329,11 +173,105 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>win32的一些学习</p>
-        
-          <a class="article-more-a" href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
+<span id="more"></span>
+
+<h1 id="Win32"><a href="#Win32" class="headerlink" title="Win32"></a>Win32</h1><h4 id="1-宽字符"><a href="#1-宽字符" class="headerlink" title="1 宽字符"></a>1 宽字符</h4><p><strong>宽字符的使用</strong><br>“中”字的编码：<br>ASCII：d6 d0<br>UNICODE：4e 2d<br>char x &#x3D; ‘中’;（窄字节ASC）<br>wchar_t x1 &#x3D; ‘中’;（宽字节ASC）<br>wchar_t x1 &#x3D; L’中’;（宽字节Unicode）</p>
+<p>char x[] &#x3D; “中国”;<br>&#x2F;&#x2F;d6 d0 b9 fa 00               使用拓展ASCII编码表  以00(\0)结尾<br>wchar_t x1[] &#x3D; L”中国”;<br>&#x2F;&#x2F;2d 4e fd 56 00 00            使用UNICODE编码表 以00 00(\0\0)结尾          </p>
+<p><strong>在控制台打印</strong></p>
+<p>char x[] &#x3D; “中国”;<br>wchar_t x1[] &#x3D; L”中国”;<br>printf(“%s\n”, x);            &#x2F;&#x2F;使用控制台默认的编码<br>wprintf(L”%s\n”, x1);            &#x2F;&#x2F;默认使用英文</p>
+<p>告诉编译器，使用控制台默认的编码格式<br>(1) 包含头文件 #include &lt;locale.h&gt;<br>(2) setlocale(LC_ALL, “”); &#x2F;&#x2F;使用控制台默认的编码  </p>
+<p><strong>字符串长度</strong></p>
+<p>char x[] &#x3D; “中a国”;&#x2F;&#x2F;3<br>wchar_t x1[] &#x3D; L”中a国”;&#x2F;&#x2F;5<br>strlen(x);            &#x2F;&#x2F;取得多字节字符串中字符长度，不包含 00<br>wcslen(x1);            &#x2F;&#x2F;取得多字节字符串中字符长度，不包含 00 00      </p>
+<p><strong>字符串的操作等等</strong></p>
+<p>wcscpy</p>
+<p><strong>WIN32中的宽字符</strong></p>
+<p>主要是存放在C:\WINDOWS\system32下面所有的dll（主要是一个外壳&#x2F;接口）</p>
+<p>kernel32.dll：最核心的功能模块，比如内存管理、进程和线程相关的函数</p>
+<p>User32.dll：是windows用户界面相关应用程序接口，如创建窗口和发送消息等</p>
+<p>GDI32.dll：全称是图形设备接口，包含用于画图和显示文本的函数</p>
+<p>#include&lt;windows.h&gt;  F12跟进去就知道是什么类型了</p>
+<p>字符类型宏：TCHAR    字符串指针宏：PTSTR（LPTSTR）</p>
+<p>为字符串指针赋值：</p>
+<p>PSTR pszChar &#x3D; “china”   &#x2F;&#x2F;多字节字符</p>
+<p>PWSTR pszWChar &#x3D; L”china” &#x2F;&#x2F;宽字符</p>
+<p>PTSTR pszTChar &#x3D; TEXT(“china”) &#x2F;&#x2F;项目是ASCII的相当于”china”UNICODE 相当于L”china”&#x2F;&#x2F;这是一个宏类型</p>
+<p>Windows程序入口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> CALLBACK <span class="title function_">WinMain</span><span class="params">(</span></span><br><span class="line"><span class="params">    _In_  HINSTANCE hInstance,<span class="comment">//实例句柄</span></span></span><br><span class="line"><span class="params">    _In_  HINSTANCE hPrevInstance,</span></span><br><span class="line"><span class="params">    _In_  LPSTR lpCmdLine,<span class="comment">//运行程序的命令行</span></span></span><br><span class="line"><span class="params">    _In_  <span class="type">int</span> nCmdShow<span class="comment">//程序最初如何显示</span></span></span><br><span class="line"><span class="params">)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-事件-消息"><a href="#2-事件-消息" class="headerlink" title="2 事件_消息"></a>2 事件_消息</h4><p>Windows为了能够准确的描述这些信息，提供了一个结构体：MSG，该结构体里面记录的事件的详细信息.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagMSG</span> &#123;</span></span><br><span class="line">    HWND   hwnd;<span class="comment">//表示消息所属的窗口</span></span><br><span class="line">    UINT   message;<span class="comment">//消息的类型,左键右键？键盘？</span></span><br><span class="line">    WPARAM wParam; <span class="comment">//32位消息的特定附加信息, 具体表示什么处决于message</span></span><br><span class="line">    LPARAM lParam; <span class="comment">//</span></span><br><span class="line">    DWORD  time;<span class="comment">//消息创建时的时间</span></span><br><span class="line">    POINT  pt;<span class="comment">//存了（x，y）鼠标的定位</span></span><br><span class="line">&#125; MSG, *PMSG;</span><br></pre></td></tr></table></figure>
+
+<p>消息处理流程<br>1.系统 &#x2F; 用户触发的某个动作                    &#x2F;&#x2F;事件<br>2.系统将这些信息存储到MSG结构体中   &#x2F;&#x2F;消息<br>3.系统将该消息存储到相关应用程序的消息队列中     &#x2F;&#x2F;消息队列    MSG Msg；<br>4.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(GetMessage(&amp;Msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>))      <span class="comment">//从队列中获取消息    </span></span><br><span class="line">&#123;   TranslateMessage(&amp;Msg); <span class="comment">//翻译消息                          </span></span><br><span class="line">    DispatchMessage(&amp;Msg);  <span class="comment">//分派消息  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.DispatchMessage将加工过的消息传递给操作系统</p>
+<p>6.系统调用窗口过程函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LRESULT CALLBACK <span class="title function_">WindowProc</span><span class="params">( <span class="comment">//窗口过程函数    </span></span></span><br><span class="line"><span class="params">    IN  HWND hwnd,</span></span><br><span class="line"><span class="params">    IN  UINT uMsg,</span></span><br><span class="line"><span class="params">    IN  WPARAM wParam,</span></span><br><span class="line"><span class="params">    IN  LPARAM lParam )</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在MSDN里面可以查询消息的类型</strong></p>
+<h4 id="3-WIN32寻址-定位回调函数"><a href="#3-WIN32寻址-定位回调函数" class="headerlink" title="3 WIN32寻址_定位回调函数"></a>3 WIN32寻址_定位回调函数</h4><p><strong>win32的应用程序入口</strong>		</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> CALLBACK <span class="title function_">WinMain</span><span class="params">(</span></span><br><span class="line"><span class="params">    _In_  HINSTANCE hInstance,<span class="comment">//实例句柄：句柄无非就是一个数值，程序用他来标识某些东西在早期Windows程序中，当多路并发运行同一个程序时，就需要为那个程序创建多个实例。</span></span></span><br><span class="line"><span class="params">    _In_  HINSTANCE hPrevInstance,<span class="comment">//同一个程序的所有实例都共享代码。一个程序可以通过查看hPrevInstance参数从而知道是否有它的其他实例正在运行。在32位Windows中，这一概念已不再采用。因此WinMain的第二个参数通常总是NULL。</span></span></span><br><span class="line"><span class="params">    _In_  LPSTR lpCmdLine,<span class="comment">//运行程序的命令行,有些Windows程序在启动时用它来把文件装入内存。</span></span></span><br><span class="line"><span class="params">    _In_  <span class="type">int</span> nCmdShow<span class="comment">//程序最初如何显示,或正常显示，或最大化，或最小化。</span></span></span><br><span class="line"><span class="params">)</span></span><br></pre></td></tr></table></figure>
+
+<p>WinMain入口函数需要有4个参数压入栈，所以我们先找压入4个参数的call,由于Win32应用程序的调用约定是stcall，参数传递是从右向左，且是内平栈</p>
+<p>[&lt;&amp;KERNEL32.GetModuleHandleA ]其实就是得到WinMain中的第一个参数实例句柄，也就是WinMain中由于stcall被压入栈的第四个参数。</p>
+<p>压入实例句柄的下一个call，应该就是我们的WinMain函数入口，我们再跟进去看看就能确定是不是我们的真正的WinMain函数入口了。</p>
+<p><strong>esp寻址特点</strong></p>
+<p>进入WinMain函数后，我们发现开栈操作并不是我们常见的EBP寻址（push ebp，move ebp，esb）</p>
+<p>而是采用了sub esp，44这种方式开栈（release版本大多采用ESP-偏移的方式开栈。）。</p>
+<p>其实debug版本大多采用EBP+偏移开栈，release版本大多采用ESP-偏移的方式开栈。</p>
+<p>相比较而言ESP开栈比EBP开栈更难逆，因为EBP开栈，它的栈底是保存着不会变的。而ESP寻址，每次push压栈、pop出栈都会引起ESP的变化，所以ESP寻址相比EBP寻址是变化的，对逆向人员要求更高</p>
+<p>次push、pop后都需要计算ESP的值，如果人工计算的话难免会有纰漏，所以ollydbg帮我们做了这份工作，看右下角的堆栈窗口。</p>
+<p><strong>窗口回调函数的定位</strong></p>
+<p>我们了解了ESP寻址的操作，回归正题，来寻找窗口回调函数</p>
+<p>窗口回调函数在WinMain函数中出现就是在函数开头构造wndclass类中，wndclass中的第二个参数就是窗口回调函数的指针。而wndclass类可以通过RegisterClass函数得到，RegisterClass的唯一参数就是wndclass类的指针。RegisterClass函数基本上在WinMain函数开始处，所以一进入WinMain函数开始跟就行了。</p>
+<p>通过入口找回调函数</p>
+<p>通过消息断点找回调函数</p>
+<h4 id="资源表"><a href="#资源表" class="headerlink" title="资源表"></a>资源表</h4><p>1、编写程序，找到某个资源在PE文件中的位置</p>
+<p>资源目录</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">IMAGE_RESOURCE_DIRECTORY</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    DWORD Characteristics;<span class="comment">//资源属性</span></span><br><span class="line">    DWORD  TimeDateStamp;<span class="comment">//时间戳</span></span><br><span class="line">    WORD MajorVersion;<span class="comment">//资源大版本号，未使用0</span></span><br><span class="line">    WORD  MinorVersion;<span class="comment">//资源小版本号，未使用0</span></span><br><span class="line">    WORD  NumberOfNamedEntries;<span class="comment">//以名称命名的资源数量</span></span><br><span class="line">    WORD  NumberOfIdEntries;<span class="comment">//以ID命名的资源数量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>资源目录项</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_RESOURCE_DIRECTORY_ENTRY</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">            DWORD NameOffset:<span class="number">31</span>;　<span class="comment">//位段: 低31位偏移 定义了目录项的名称或者ID</span></span><br><span class="line">            DWORD NameIsString:<span class="number">1</span>;　<span class="comment">//位段: 高位, 如果这位为1,则表示31位的偏移指向的是一个Unicode字符串的指针偏移</span></span><br><span class="line">          &#125;;　</span><br><span class="line">        DWORD   Name;　　<span class="comment">//name&amp;0x80000000 == 0x80000000　　　　　　　　　　</span></span><br><span class="line">        WORD    Id;</span><br><span class="line">    &#125;;(四个字节)</span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        DWORD  OffsetToData;　<span class="comment">//目录项指针  高位如果为1，低31位+资源地址=下一层目录节点的起始位置</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">            DWORD  OffsetToDirectory:<span class="number">31</span>;　<span class="comment">//看高位,如果高位是1,那么RVA偏移指向的是新的(根目录)</span></span><br><span class="line">            DWORD  DataIsDirectory:<span class="number">1</span>;　　　　　　</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;（四个字节）</span><br><span class="line">&#125; IMAGE_RESOURCE_DIRECTORY_ENTRY, *PIMAGE_RESOURCE_DIRECTORY_ENTRY;</span><br></pre></td></tr></table></figure>
+
+<p>Name  第一层：资源类型   第二层：资源编号   第三层：代码页（简体中文：2050）</p>
+<p>第一层的Name最高位是1：低31位是一个UNICOED指针，指向一个结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_RESOURCE_DIR_STRING_U</span>&#123;</span></span><br><span class="line">  WORD Length;</span><br><span class="line">  WCHAR NameString[<span class="number">1</span>];</span><br><span class="line">&#125;;IMAGE_RESOURCE_DIR_STRING_U,*PIMAGE_RESOURCE_DIR_STRING_U</span><br></pre></td></tr></table></figure>
+
+<p>最高位是0：表示的字段作为ID使用</p>
+<h4 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HANDLE WINAPI <span class="title function_">CreateThread</span><span class="params">(   </span></span><br><span class="line"><span class="params">   LPSECURITY_ATTRIBUTES  lpThreadAttributes, <span class="comment">//安全属性 通常为NULL     </span></span></span><br><span class="line"><span class="params">   SIZE_T      dwStackSize,   <span class="comment">//参数用于设定线程可以将多少地址空间用于它自己的堆栈，每个线程拥有它自己的堆栈</span></span></span><br><span class="line"><span class="params">   LPTHREAD_START_ROUTINE lpStartAddress,  <span class="comment">//参数用于指明想要新线程执行的线程函数地址</span></span></span><br><span class="line"><span class="params">   LPVOID      lpParameter, <span class="comment">//线程函数的参数</span></span></span><br><span class="line"><span class="params">   DWORD       dwCreationFlags,<span class="comment">//0 创建完毕立即调度</span></span></span><br><span class="line"><span class="params">   LPDWORD     lpThreadId )</span>;<span class="comment">//线程ID</span></span><br><span class="line"><span class="comment">//返回值：线程句柄</span></span><br></pre></td></tr></table></figure>
+
+<p>线程句柄与线程ID：</p>
+<p>线程是由windows内核负责创建与管理的，句柄相当于一个令牌，有了这个令牌就可以使用线程兑现</p>
+<p>线程ID是身份证，唯一的，系统进行线程调度的时候要使用的</p>
+<p>像线程函数传递变量的两种方式</p>
+<p>（1）线程参数</p>
+<p>（2）全局变量</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -342,16 +280,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/24/win32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/04/24/%E5%8F%8D%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          反汇编学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">fuzz学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -366,78 +372,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-fuzz学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">fuzz学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-04-24T12:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="fuzz的学习笔记"><a href="#fuzz的学习笔记" class="headerlink" title="fuzz的学习笔记"></a>fuzz的学习笔记</h1>
-        
-          <a class="article-more-a" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Win32"><span class="toc-number">1.</span> <span class="toc-text">Win32</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%BD%E5%AD%97%E7%AC%A6"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1 宽字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BA%8B%E4%BB%B6-%E6%B6%88%E6%81%AF"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2 事件_消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-WIN32%E5%AF%BB%E5%9D%80-%E5%AE%9A%E4%BD%8D%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3 WIN32寻址_定位回调函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E8%A1%A8"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">资源表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">创建线程</span></a></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -460,8 +420,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
