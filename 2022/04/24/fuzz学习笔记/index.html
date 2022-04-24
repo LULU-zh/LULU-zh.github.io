@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>fuzz学习笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="fuzz的学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fuzz学习笔记">
+<meta property="og:url" content="http://example.com/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="fuzz的学习笔记">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="d:/First_year/二进制逆向/一些笔记/20200927145458913.png">
+<meta property="og:image" content="d:/First_year/二进制逆向/一些笔记/1649400671(1).png">
+<meta property="og:image" content="d:/First_year/二进制逆向/一些笔记/1648627856(1).png">
+<meta property="og:image" content="d:/First_year/二进制逆向/一些笔记/3008243-b517c768f5a97607.png">
+<meta property="og:image" content="d:/First_year/二进制逆向/一些笔记/3008243-a7c02c2c24265d98.png">
+<meta property="article:published_time" content="2022-04-24T12:14:20.000Z">
+<meta property="article:modified_time" content="2022-04-24T12:18:32.022Z">
 <meta property="article:author" content="LULU">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:/First_year/二进制逆向/一些笔记/20200927145458913.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -142,16 +152,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-fuzz学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-fuzz学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">fuzz学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      fuzz学习笔记
     </h1>
   
 
@@ -164,12 +172,198 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="fuzz的学习笔记"><a href="#fuzz的学习笔记" class="headerlink" title="fuzz的学习笔记"></a>fuzz的学习笔记</h1>
-        
-          <a class="article-more-a" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more">more >></a>
-        
+        <h1 id="fuzz的学习笔记"><a href="#fuzz的学习笔记" class="headerlink" title="fuzz的学习笔记"></a>fuzz的学习笔记</h1><span id="more"></span>
+<h2 id="变异策略（确定变异位置）"><a href="#变异策略（确定变异位置）" class="headerlink" title="变异策略（确定变异位置）"></a>变异策略（确定变异位置）</h2><p><strong>导向型变异策略</strong>：根据预处理阶段或模糊测试循环过程中得到的信息有目性地选择变异位置，使用适当的变异方法对种子文件进行变异，尽可能使种子文件经过变异可以提升代码覆盖范围。</p>
+<p><strong>非导向型变异策略</strong>：不关心目标系统的相关信息：它随机或者从前到后依次选取变异位置，这样可以快速生成大量的输入文件。</p>
+<h4 id="污点分析"><a href="#污点分析" class="headerlink" title="污点分析"></a><strong>污点分析</strong></h4><p>污点分析可以抽象成一个三元组&lt;sources, sinks, sanitizers&gt;的形式，</p>
+<p>sources：污点源，代表直接引入不受信任的数据或者机密数据到系统中<br>sink：污点汇聚点，代表直接产生安全敏感操作或者泄露隐私数据到外界<br>sanitizer：无害处理，代表通过数据加密或者移除危害操作等手段使数据传播不再对软件系统的信息安全产生危害污点分析可以抽象成一个三元组&lt;sources, sinks, sanitizers&gt;的形式，</p>
+<p>污点分析就是分析程序中由污点源引入的数据是否能够不经过无害处理，而直接传播到污点汇聚点。如果不能，说明信息流是安全的；否则，说明系统产生了隐私数据泄露或危险数据操作等问题。</p>
+<p>污点传播分析就是分析污点标记数据在程序中的传播途径。按照分析过程中关注的程序依赖关系的不同, 可以将污点传播分析分为以下两种：</p>
+<ul>
+<li>显式流分析（数据依赖关系）</li>
+<li>隐式流分析（控制依赖关系）</li>
+</ul>
+<p>污点传播分析根据分析过程是否需要运行程序，可以将污点传播分析为：</p>
+<ul>
+<li><p><strong>静态污点分析</strong>：不运行且不修改代码的前提下，通过分析程序变量间的数据依赖关系来检测数据能否从污点源传播到污点汇聚点。</p>
+<p>（解决显式流问题）：</p>
+<ul>
+<li>首先，根据程序中的函数调用关系构建调用图（call graph，简称CG）</li>
+<li>然后，在函数内或者函数间根据不同的程序特性进行具体的数据流传播分析。</li>
+</ul>
+<p>（解决隐式流问题）：</p>
+<ul>
+<li>需要分析每一个分支控制条件是否需要传播污点标记。但是路径敏感的数据流分析往往会产生路径爆炸问题。</li>
+</ul>
+</li>
+<li><p><strong>动态污点分析</strong>：在程序运行过程中，通过实时监控程序的污点数据在系统程序中的传播来检测数据能否从污点源传播到污点汇聚点。</p>
+<p>（解决显式流问题）：</p>
+<ul>
+<li>动态污点传播分析首先需要为污点数据扩展一个污点标记的标签并将其存储在存储单元（内存、寄存器、缓存等）中，然后根据指令类型和指令操作数设计相应的传播逻辑，传播污点标记。</li>
+<li>动态污点传播分析按照实现层次被分为基于硬件、基于软件（插桩、代码重写）、以及混合型。</li>
+</ul>
+<p>（解决隐式流问题）：</p>
+<ul>
+<li>动态执行轨迹并不能反映出被执行的指令之间的控制依赖关系，目前的研究多采用离线的静态分析，辅助判断动态污点传播中的隐式流标记范围。</li>
+</ul>
+</li>
+</ul>
+<h4 id="符号执行"><a href="#符号执行" class="headerlink" title="符号执行"></a><strong>符号执行</strong></h4><p>符号执行是一种白盒的静态分析技术，指的是通过使用抽象的符号代替具体值来模拟程序的执行，当遇到分支语句时，它会探索每一个分支, 将分支条件加入到相应的路径约束中，若约束可解，则说明该路径是可达的。</p>
+<ul>
+<li><p><strong>静态符号执行</strong></p>
+<p>将输入(input)用符号来表征而不是具体值，同时将程序变量表征成符号表达式。因此，程序的输出就会被表征成一个程序输入的函数，即fun(input)。在软件测试中，符号执行被用于生成执行路径(execution path)的输入。</p>
+</li>
+<li><p><strong>动态符号执行（混合concolic符号执行）</strong></p>
+<p>动态符号执行也叫DSE、DART等。动态符号执行使用<strong>具体值</strong>作为输入，同时启动代码模拟执行器，并从当前路径的分支语句的谓词中搜集所有符号约束。然后修改该符号约束内容构造出一条新的可行的路径约束，并用约束求解器求解出一个可行的新的具体输入，接着符号执行引擎对新输入值进行一轮新的分析。通过使用这种输入迭代产生变种输入的方法，理论上所有可行的路径都可以被计算并分析一遍。</p>
+</li>
+</ul>
+<h2 id="变异方法"><a href="#变异方法" class="headerlink" title="变异方法"></a>变异方法</h2><p>替换、插入和删除。</p>
+<p>例如AFL的变异：（havoc：对种子文件进行多轮变异，每一轮都以多种具体方法实现，包括：反转、乱序、加减、替换、插入、字典；splice：将两个种子文件进行拼接得到新的种子文件，并对此种子文件使用havoc方法进行变异。）</p>
+<p>常用变异方法还有位反转、加减、插入、删除、字典、乱序、基于片段变异、语法树变异等等。</p>
+<h2 id="引导机制"><a href="#引导机制" class="headerlink" title="引导机制"></a>引导机制</h2><p>核心功能是在动态测试的过程中决定什么样的测试用例可以成为新的种子，通过影响种子的方式来达到引导测试对象向特定方向前进的目的。</p>
+<p>不同的引导机制根据实现原理以及引导思路的不同可以被总结为5大类别：代码覆盖率引导机制、目标距离引导机制、Sanitizer引导机制、状态机引导机制以及神经元覆盖引导机制。</p>
+<p><strong>代码覆盖率</strong>引导是目前最常见的一种引导方式。代码覆盖的判断方式：在源程序中指源代码中某行代码是否执行；在二进制程序中指某条汇编指令是否执行。覆盖率的计量方式有三种常见的方法：基本块(Basic Block)、边(Edge)和路径(Path)覆盖。代表性的工具有AFL、Vuzzer、Angora、CollAFL等。</p>
+<p><strong>目标距离引导</strong>是定向模糊测试中常用的一种引导方式。定向Fuzzer针对程序中有可能会出现bug的特定目标位置，通过计算当前测试用例覆盖的代码到目标的距离来引导程序更快到达这些位置，并着重对这些位置进行测试，以加快暴露漏洞的时间。</p>
+<p><strong>Sanitizer</strong>是一个错误检测框架，可以在目标程序中插入各种可能的错误检查（访问越界或者溢出）。一般Fuzzer用Sanitizer主要是为了改进错误检测和分类，但使用Sanitizer并结合定向Fuzzing技术来改进目标程序中的bug覆盖率也是一种新的引导思路。</p>
+<p> <strong>状态机</strong>的引导方式主要用于协议Fuzzing，协议Fuzzer通常不止收集覆盖率，还会在接收客户端Request时记录当前协议状态（Protocol State）。最后可以生成整个会话期间的状态变化序列，再根据该序列是否触发新状态来引导种子是否加入语料库中。</p>
+<p> <strong>神经元覆盖</strong>用于针对深度学习模型的Fuzz。对于一个Deep Learning系统来说，其具体逻辑并不完全体现在代码的分支流程图上，而是与具体神经元相关，最后结果实际上受到神经网络中每一个神经元的影响。因此神经元覆盖率是深度学习模型模糊测试领域的一个重要指标。</p>
+<h2 id="AFL源码阅读"><a href="#AFL源码阅读" class="headerlink" title="AFL源码阅读"></a>AFL源码阅读</h2><p>（一）检查：用start_time&#x3D;get_cur_time()获取开始时间，并检查是不是QEMU_MODE</p>
+<p>（二）perform_dry_run：执行input文件夹下的预先准备的所有testcase(perform_dry_run)，生成初始化的queue和bitmap。这支队初始输入执行一次所以叫dry run。</p>
+<ol>
+<li><p>第一个是个while循环，遍历之前生成的input_queue 也就是queue链表。该<em>while(q) loop</em> 的前面，准备工作：从队列中取出<em>q-&gt;fname</em> 读取该文件<em>q-&gt;len</em> 大小到<em>use_mem</em> 中，关闭<em>fd</em></p>
+</li>
+<li><p>接着调用<code>calibrate_case</code>函数对该case进行校准。该函数内调用方式<code>res = calibrate_case(argv, q, use_mem, 0, 1);</code></p>
+</li>
+<li><p>根据校准的返回值res ，查看是哪种错误并进行判断。一共有以下几种错误类型。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>        <span class="class"><span class="keyword">enum</span>&#123;</span>    </span><br><span class="line"><span class="number">2</span>        <span class="comment">/*00*/</span>FAULT_NONE,</span><br><span class="line"><span class="number">3</span>        <span class="comment">/*01*/</span>FAULT_TMOUT,</span><br><span class="line"><span class="number">4</span>        <span class="comment">/*02*/</span>FAULT_CRASH,</span><br><span class="line"><span class="number">5</span>        <span class="comment">/*03*/</span>FAULT_ERROR,</span><br><span class="line"><span class="number">6</span>        <span class="comment">/*04*/</span>FAULT_NOINST,</span><br><span class="line"><span class="number">7</span>        <span class="comment">/*05*/</span>FAULT_NOBITS&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打印一些错误信息，退出函数</p>
+</li>
+</ol>
+<p>（三）calibrate_case：校准一个新的测试用例。这是在处理输入目录时完成的，以便在早期就警告有问题的测试用例;当发现新的路径来检测变量行为等等。（在<code>perform_dry_run，save_if_interesting，fuzz_one，pilot_fuzzing,core_fuzzing</code>函数中均有调用。）该函数主要用途是init_forkserver；将testcase运行多次；用update_bitmap_score进行初始的byte排序。</p>
+<p>（四）init_forkserver：启动APP和它的forkserver</p>
+<p><strong>实际流程：</strong>fuzzer(调用init_forkserver)-&gt;fork fueezer–targetApp(forkserver) call fork -&gt;targetAppfork(实际fuzz的程序)。</p>
+<p><img src="D:\First_year\二进制逆向\一些笔记\20200927145458913.png" alt="20200927145458913"></p>
+<p>首先alf-fuzz会创建两个管道(init_forkserver())，然后会去执行afl-gcc编译出来的目标程序。结合之前的分析，目标程序的main函数位置已经被插桩，程序的控制流会交到_afl_maybe_log手中。如fuzz是第一次运行，则此时的程序便成为了fuzz server，之后运行的目标程序都是由该server fork出来的子进程。fuzz进行的时候，fuzz server会一直fork子进程，并且将子进程的结束状态通过pipe传递给afl-fuzz。</p>
+<p><strong>AFL的整体流程：</strong></p>
+<ol>
+<li><p>afl_fuzz的main函数会解析用户输入命令，检查环境变量的设置、输入输出路径、目标文件。程序定义了结构体<strong>queue_entry</strong>链表维护fuzz中使用的文件。</p>
+</li>
+<li><p>函数<strong>perform_dry_run()</strong> 会使用初始的测试用例进行测试，确保目标程序能够正常执行,生成初始化的queue和bitmap。</p>
+</li>
+<li><p>函数 <strong>cull_queue()</strong> 会对初始队列进行筛选（更新favored entry）。遍历top_rated[]中的queue，然后提取出发现新edge的entry，并标记为favored，使得在下次遍历queue时，这些entry能获得更多执行fuzz的机会。</p>
+</li>
+<li><p>进入while(1)开始fuzz循环</p>
+<p>（1）进入循环后第一步还是cull_queue()，对queue进行筛选</p>
+<p>（2）判断queue_cur是否为空，如果是，则表示已经完成对队列的遍历，初始化相关参数，重新开始遍历队列</p>
+<p>（3）fuzz_one()函数会对queue_cur所对应文件进行fuzz，包括（跳过-calibrate_case-修剪测试用例-对用例评分-确定性变异或者直接havoc&amp;splice）</p>
+<p>（4）判断是否结束，更新queue_cur和current_entry</p>
+<p>（5）当队列中的所有文件都经过变异测试了，则完成一次“cycle done”。整个队列又会从第一个文件开始，再次继续进行变异</p>
+</li>
+</ol>
+<p><strong>AFL结果面板</strong></p>
+<p><img src="D:\First_year\二进制逆向\一些笔记\1649400671(1).png" alt="1649400671(1)"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">process timing&#123;</span><br><span class="line">    run time<span class="comment">//fuzzer运行时长</span></span><br><span class="line">    last new path<span class="comment">//距离最近发现的路径用了多长时间（如果报错要及时修改命令行参数）</span></span><br><span class="line">    last uniq crash<span class="comment">//距离最近发现的崩溃经过了多长时间</span></span><br><span class="line">    last uniq hang<span class="comment">//距离最近发现的挂起经过了多长时间</span></span><br><span class="line">&#125;</span><br><span class="line">overall results&#123;</span><br><span class="line">    cycles done <span class="comment">//队列里所有的文件测试完了是一次cycle（变绿之后进行fuzz，出现crash的几率也很低了）</span></span><br><span class="line">    total path<span class="comment">//目前为止发现的测试用例（“路径”）的数量</span></span><br><span class="line">    uniq crashes<span class="comment">//存放造成程序崩溃的测试用例，根据产生的信号不同进行分类</span></span><br><span class="line">    uniq hangs<span class="comment">//存放造成程序超时的测试用例</span></span><br><span class="line">&#125;</span><br><span class="line">cycle progress&#123;</span><br><span class="line">    now processing<span class="comment">//显示正在处理的测试用例的ID，和数量</span></span><br><span class="line">    paths timed out<span class="comment">//决定放弃的输入</span></span><br><span class="line">&#125;</span><br><span class="line">Map coverage&#123;</span><br><span class="line">    <span class="built_in">map</span> density <span class="comment">//有多少个分支元组命中，与位图可以容纳多少成正比（左边描述当前输入，右边的是整个语料库）</span></span><br><span class="line">    count coverage<span class="comment">//处理二进制文件中元组命中计数的可变性。（若每个采用的分支总是采用固定次数，这将显示为“1.00”） </span></span><br><span class="line">&#125;</span><br><span class="line">Stage progress&#123;</span><br><span class="line">    now trying : interest <span class="number">32</span>/<span class="number">8</span><span class="comment">//此时模糊器是什么变异</span></span><br><span class="line">    stage execs : <span class="number">3996</span>/<span class="number">34.4</span>k (<span class="number">11.62</span>%)<span class="comment">//当前阶段的进度指示器</span></span><br><span class="line">    total execs : <span class="number">27.4</span>M<span class="comment">//全局执行计数器              </span></span><br><span class="line">    exec speed : <span class="number">891.7</span>/sec<span class="comment">//当前程序执行速度的基准（正常情况下应该超过500）  </span></span><br><span class="line">&#125;</span><br><span class="line">Findings in depth&#123;</span><br><span class="line">    favored paths : <span class="number">879</span> (<span class="number">41.96</span>%)<span class="comment">//模糊器最喜欢的路径数</span></span><br><span class="line">    new edges on : <span class="number">423</span> (<span class="number">20.19</span>%) </span><br><span class="line">    total crashes : <span class="number">0</span> (<span class="number">0</span> unique)<span class="comment">//更详细的崩溃和超时计数器</span></span><br><span class="line">    total tmouts : <span class="number">24</span> (<span class="number">19</span> unique) </span><br><span class="line">&#125;</span><br><span class="line">Fuzzing strategy yields&#123;<span class="comment">//每种模糊测试策略已经获得了多少路径，与尝试的执行者数量成正比</span></span><br><span class="line">    bit flips : <span class="number">57</span>/<span class="number">289</span>k, <span class="number">18</span>/<span class="number">289</span>k, <span class="number">18</span>/<span class="number">288</span>k        </span><br><span class="line">    byte flips : <span class="number">0</span>/<span class="number">36.2</span>k, <span class="number">4</span>/<span class="number">35.7</span>k, <span class="number">7</span>/<span class="number">34.6</span>k       </span><br><span class="line">    arithmetics : <span class="number">53</span>/<span class="number">2.54</span>M, <span class="number">0</span>/<span class="number">537</span>k, <span class="number">0</span>/<span class="number">55.2</span>k      </span><br><span class="line">    known ints : <span class="number">8</span>/<span class="number">322</span>k, <span class="number">12</span>/<span class="number">1.32</span>M, <span class="number">10</span>/<span class="number">1.70</span>M      </span><br><span class="line">    dictionary : <span class="number">9</span>/<span class="number">52</span>k, <span class="number">1</span>/<span class="number">53</span>k, <span class="number">1</span>/<span class="number">24</span>k             </span><br><span class="line">    havoc : <span class="number">1903</span>/<span class="number">20.0</span>M, <span class="number">0</span>/<span class="number">0</span>                      </span><br><span class="line">    trim : <span class="number">20.31</span>%/<span class="number">9201</span>, <span class="number">17.05</span>% </span><br><span class="line">&#125;</span><br><span class="line">cpu load<span class="comment">//如果该值显示为绿色，则您使用的CPU内核数少于可用的CPU内核数，并且可能可以并行化以提高性能。如果为红色，则CPU可能超额订阅</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="AFL的种子选择与引导机制"><a href="#AFL的种子选择与引导机制" class="headerlink" title="AFL的种子选择与引导机制"></a>AFL的种子选择与引导机制</h2><p><strong>AFL引导机制的问题</strong></p>
+<p>丢弃非完全匹配样本：比如说BUF[0]&#x3D;”<strong>MAG</strong>Ik”所对应的测试用例显然好于 BUF[0]&#x3D;“<strong>M</strong>WROB”所对应的测试用例。</p>
+<p>一些新情况被丢弃，重复的边被丢弃；解决方法——局部路径引导：将两条边的hash再次做成异或，形成两条边所组成的局部路径的hash值，形成bitmap。</p>
+<p>hash冲突；解决方法——CollAFL</p>
+<p><strong>AFL种子筛选机制</strong></p>
+<p>优先种子：覆盖到某一条边的最好种子。最好种子是指所有能够覆盖到边的该种子中，对其进行一次完整测试所消耗时间最短的种子。</p>
+<p>优先种子集：可以覆盖当前已经发现的所有边的优先种子集合。即优先种子集的覆盖面等价于当前所有种子的覆盖面。</p>
+<p>该算法按照边的hash值，在0到65535的范围中按照从小到大的顺序选择该边的优先种子，直到覆盖到所有已发现的边。由于被测试程序编译生成后，所有边的hash值就已经确定，因此这实际上是一个固定的选择顺序。（这种算法存在缺陷，在进行选择时隐含了一个固定顺序，排在越后面的种子被选择的概率更低）</p>
+<h2 id="代码覆盖率"><a href="#代码覆盖率" class="headerlink" title="代码覆盖率"></a>代码覆盖率</h2><p>计算代码覆盖率情况就需要有个<strong>计量单位</strong>，通常有3种：</p>
+<p>1.函数（Fuction-Level）</p>
+<p>是代码执行时调用到哪些函数，但是函数里面的具体代码行却不作统计，相对比较粗糙但高效的统计方式。所以，通常的统计方式是用基本块，简称BB。</p>
+<p>2.基本块（BasicBlock-Level）</p>
+<p>IDA中每一块代码就代表着一个基本块，就是以指令跳转为作划分界限的。</p>
+<p>3.边界（Edge-Level）</p>
+<p>edge本身就涵盖了基本块部分，唯一的差别是edge多记录了一些执行边界的信息。比如示例代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">foo</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a)</span><br><span class="line">        a=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前面基本块的方式就无法确切地知道是否曾从A执行到C，尤其是该段代码被多次执行的情况，就更无法知道，这时edge覆盖方式就出现了。edge会在A跟C之间建立虚拟块D，通过判断D是否执行过，来确认是否曾从A执行到C，这种方式也会比较消耗性能</p>
+<p><img src="D:\First_year\二进制逆向\一些笔记\1648627856(1).png" alt="1648627856(1)"></p>
+<h2 id="Honggfuzz"><a href="#Honggfuzz" class="headerlink" title="Honggfuzz"></a>Honggfuzz</h2><p><strong>统计覆盖率的方法（honggfuzz）</strong></p>
+<p>1.【有源码】：直接使用SanitizerCoverage即可，在编译选项中添加相应的覆盖率统计方式，比如基本块统计方式可以添加：CFLAG&#x3D;“-fsanitize&#x3D;address -fsanitize-coverage&#x3D;bb”。</p>
+<p>2.【无源码】：使用Pin、DynamoRIO等二进制插桩工具去hook统计，或者pediy改指令的方式去监控也是可以的。</p>
+<p><strong>反馈驱动原理</strong></p>
+<p>默认以基本块作为代码覆盖率的统计方式，采用如下编译选项</p>
+<p>ASAN_OPTIONS&#x3D;coverage&#x3D;1:coverage_direct&#x3D;1 -fsanitize&#x3D;address -fsanitize-coverage&#x3D;bb 执行后它会生成两个文件：.sancov.map和.sancov.raw，这是honggfuzz处理过的scancov文件。</p>
+<p>其中.sancov.map文件记录是模块信息，.sancov.raw文件则记录着执行过的基本块地址信息：</p>
+<p>1、首先，honggfuzz会先去分析.sancov.raw文件，保存命中的基本块地址，记录BB数，以及总共的BB数</p>
+<p>2、计算代码覆盖率 &#x3D;BB&#x2F;edge数</p>
+<p>3、发现新路径或者新插桩链接库加载，则添加此变异样本为新的输入样本，供后面作进一步变异，以触发更多新路径</p>
+<p><strong>基于Intel PT的反馈驱动</strong></p>
+<p>该方法由硬件支配，Intel pt可以直接对二进制程序进行跟踪，追踪的数据采用压缩的二进制格式输出，每秒每个CPU都会持续记录并输出，由于最早是出现在内核空间的，为了使用它，需要导到用户空间，即通过前面mmap方法映射到用户可写的内存空间，然后再去定位数据解码。</p>
+<p><strong>fuzz策略</strong></p>
+<p>honggfuzz在对输入文件进行变异前，会先创建个临时文件名（honggfuzz+pid+time），然后将输入数据变异后写入临时文件。</p>
+<p>fuzz策略的实现主要集中在mangle.c中，在循环的fuzzloop函数中，会根据用户的选择的fuzz方式来调用动态fuzz或者静态fuzz的方法，但最后都是调用mangle_mangleContent来变异文件数据。</p>
+<p>变异：随机选择变异函数进行处理，更改的字节数是随机的，根据用户指定的变异率来定。变异函数都是在mangle_init中初始化，各函数之间也会相互调用。</p>
+<p>mangle_Resize：用空格填充随机位置</p>
+<p>mangle_Byte：向随机位置写随机的uint8类型的数据</p>
+<p>mangle_Bit：取随机位置的数值做位翻转</p>
+<p>mangle_Bytes：在随机位置覆盖写2~4字节数据</p>
+<p>mangle_Magic：取各种边界值进行覆写</p>
+<p>mangle_IncByte（DecByte）：去随机位置的数据加1（减1）</p>
+<p>mangle_NegByte：取随机位置的数据取反</p>
+<p>mangle_AddSub函数：取随机位置的1、2、4或8字节的数据长度作加减操作，操作数取 rand(0~8192)-4096</p>
+<p>mangle_Dictionary：变异目录名，也是随机取文件夹名称进行变异，如果有多个目录，那被变异的目录数也是随机的</p>
+<p>mangle_DictionaryInsert：在目录的随机位置中插入随机数据</p>
+<p>mangle_MemMove：取随机位置的数据拷贝随机长度的数据，里面就是调用memmove函数实现的</p>
+<p>mangle_MemSet：取随机位置、随机大小，用UINT8_MAX数值填充</p>
+<p>mangle_Random：取随机位置、随机大小的缓冲区，用随机数填充</p>
+<p>mangle_CloneByte：取两处随机位置的作数据交换</p>
+<p>mangle_Expand：文件末尾扩展随机长度的空间，用空格填充，然后在随机位置，取前面的随机长度作数据拷贝</p>
+<p>mangle_Shrink：删除随机长度的文件内容</p>
+<p>mangle_InsertRnd：在文件的随机位置插入随机长度的数据</p>
+<p>mangle_ASCIIVal：在随机位置覆盖32字节的随机数</p>
+<h2 id="种子筛选机制"><a href="#种子筛选机制" class="headerlink" title="种子筛选机制"></a>种子筛选机制</h2><p>重点是使种子集合的大小最小化，及选择能够覆盖所有发现的代码覆盖的最少种子数。这样做的原因是，种子的冗余会浪费计算资源来检查经过充分探索的代码区域。最小化种子集问题也被定义为最小化集覆盖问题。</p>
+<h2 id="能量调度机制：解决变异过程中不同种子的资源分配问题"><a href="#能量调度机制：解决变异过程中不同种子的资源分配问题" class="headerlink" title="能量调度机制：解决变异过程中不同种子的资源分配问题"></a>能量调度机制：解决变异过程中不同种子的资源分配问题</h2><p>给质量高的种子分配更多的变异时间，将种子的重要程序进行排序</p>
+<p>在实践中，大多数fuzzers优化的不是时间预算，而是选择的种子的突变次数。</p>
+<p>基于bug或执行状态(如代码覆盖)的模糊性。它是一个标量，用来衡量种子或输入的质量。因为模糊是一种发现bug的技术，所以直观的是bug的数量。为了最大化bug的数量，一种方法是在随机或顺序选择种子的同时安排每个种子的时间预算。在不考虑执行状态的情况下，最大化问题可以简化为整数线性规划(ILP)问题。通过解决ILP问题，可以自动计算出每个种子的时间预算。另一方法是将错误到达过程视为加权优惠券收集器问题(WCCP)。ILP和WCCP都打算分配更多的时间预算给那些更有可能暴露bug的种子。</p>
+<h2 id="什么是LLVM"><a href="#什么是LLVM" class="headerlink" title="什么是LLVM"></a>什么是LLVM</h2><p>LLVM项目时模块化、可重用的编译器及工具链技术的集合</p>
+<p><strong>传统的编译器架构：</strong></p>
+<p>源码——&gt;frontende前端（词法分析、语法分析、语义分析、生成中间代码）——&gt;optimizer优化器（中间代码优化）——&gt;backend后端（生成机器码）</p>
+<p><strong>LLVM架构：</strong><img src="D:\First_year\二进制逆向\一些笔记\3008243-b517c768f5a97607.png" alt="3008243-b517c768f5a97607"></p>
+<p>不同的前端后端使用统一的中间代码LLVM IR</p>
+<p>如果需要支持一种新的编程语言，那么只需要实现一个新前端</p>
+<p>如果需要支持一种新的硬件设备，那么只需要实现一个新后端</p>
+<p>优化阶段是一个通用的阶段，它针对的是统一的LLVM IR,无论是新的编程语言还是新的硬件设备，都不需要对优化阶段做修改。</p>
+<p><strong>什么是clang</strong></p>
+<p>clang是llvm的一个子项目，基于LLVM架构的C&#x2F;C++&#x2F;Objective-C编译器前端</p>
+<p>它编译速度快，占用内存小，模块化设计，诊断信息可读性强</p>
+<img src="D:\First_year\二进制逆向\一些笔记\3008243-a7c02c2c24265d98.png" alt="3008243-a7c02c2c24265d98" style="zoom:70%;" />
+
+<p>LLVM整体架构，前端用的是clang。广义上LLVM指的是整个LLVM架构，一般狭义的LLVM是指LLVM后端。</p>
+<p>LLVM IR有三种表示形式</p>
+<p>text：便于阅读的文本格式，类似于汇编语言，扩展名.ll</p>
+<p>memory：内存格式</p>
+<p>bitcode：二进制格式，扩展名.bc</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -178,16 +372,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/24/fuzz%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -207,83 +460,14 @@
 
 
 
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2022/04/24/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-24T11:18:16.277Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -306,8 +490,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
